@@ -1,6 +1,46 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "daisyui";
+
+
+@plugin "daisyui/theme" {
+  name: "gruvboxDark";
+  default: false;
+  prefersdark: false;
+  color-scheme: dark;
+  --color-base-100: #3c3836;
+  --color-base-200: #504945;
+  --color-base-300: #665c54;
+  --color-base-content: #ebdbb2;
+  --color-primary: #d65d0e;
+  --color-primary-content: #ebdbb2;
+  --color-secondary: #fe8019;
+  --color-secondary-content: #ebdbb2;
+  --color-accent: #928374;
+  --color-accent-content: #ebdbb2;
+  --color-neutral: #282828;
+  --color-neutral-content: #ebdbb2;
+  --color-info: #458588;
+  --color-info-content: #ebdbb2;
+  --color-success: #98971a;
+  --color-success-content: #ebdbb2;
+  --color-warning: #d79921;
+  --color-warning-content: #ebdbb2;
+  --color-error: #cc241d;
+  --color-error-content: #ebdbb2;
+  --radius-selector: 0rem;
+  --radius-field: 0rem;
+  --radius-box: 0rem;
+  --size-selector: 0.21875rem;
+  --size-field: 0.1875rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 1;
+}
+
+@font-face {
+    font-family: "ui-sans-serif";
+    src: url("TX-02.woff2") format("woff");
+}
 
 /*
 
