@@ -24,6 +24,9 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render Admin::NavbarComponent.new %>
+    <main class="container mx-auto mt-12 px-5 flex">
+      <%= yield %>
+    </main>
   </body>
 </html>
