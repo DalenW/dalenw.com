@@ -15,4 +15,10 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "home#index"
+
+  namespace :admin do
+    scope :home do
+      get "/", to: "home#index", as: :home
+    end
+  end
 end
