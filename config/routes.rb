@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   namespace :admin do
     scope :home do
       get "/", to: "home#index", as: :home
+
+      resources :post
     end
   end
 end
