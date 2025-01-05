@@ -70,3 +70,5 @@ end
 gem "tabler_icons_ruby", "~> 3.11"
 
 gem "view_component"
+
+gem "redcarpet"

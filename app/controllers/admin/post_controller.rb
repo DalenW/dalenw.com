@@ -16,6 +16,10 @@ class Admin::PostController < AdminController
     redirect_to edit_admin_post_path @post
   end
 
+  def show
+    @markdown = Redcarpet::Markdown.new(FluffyCarpet, autolink: true, tables: true)
+  end
+
   def edit
     # nothing
   end
