@@ -1,3 +1,5 @@
+// this file is useless with tailwind 4 but we'll keep it just in case
+
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {

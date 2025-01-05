@@ -17,7 +17,7 @@ class Admin::PostController < AdminController
   end
 
   def show
-    @markdown = Redcarpet::Markdown.new(FluffyCarpet, autolink: true, tables: true)
+    @markdown = Redcarpet::Markdown.new(FluffyCarpet, fenced_code_blocks: true, tables: true)
   end
 
   def edit

@@ -38,3 +38,8 @@
 
 config/application.yml
 node_modules
+
+# normally I'd keep this but tailwind 4 is reading the vendor asset files and it's causing issues.
+# Also it's a lot
+# see https://tailwindcss.com/docs/v4-beta#automatic-source-detection for adding a source back
+# /vendor/javascript/*
