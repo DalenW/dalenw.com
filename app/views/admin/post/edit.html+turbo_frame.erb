@@ -1,13 +1,26 @@
 <%= turbo_frame_tag @turbo_frame_tag do %>
-  <form>
+  <form method="patch" action="<%= admin_post_path %>">
+
+    <%= render Form::FlashComponent.new %>
+    <%= render Form::ErrorComponent.new(@post.errors.messages) %>
+
+
     <div class="flex justify-between mb-4">
-      <p class="text-xl">
-        Edit Post
-      </p>
+
+      <div class="flex">
+        <a href="<%= admin_post_path @post %>" class="btn btn-primary btn-outline mr-4">
+          <%= tabler_icon 'arrow-left', class: 'h-5 w-5' %> Back to Post
+        </a>
+
+        <p class="text-xl">
+          Edit
+        </p>
+      </div>
+
 
       <div class="flex justify-end">
         <button type="submit" class="btn btn-success">
-          Save
+          <%= tabler_icon 'device-floppy', class: 'h-5 w-5' %> Save
         </button>
       </div>
     </div>
@@ -15,15 +28,14 @@
     <div class="card bg-base-200 shadow-sm">
       <div class="card-body">
         <div class="flex">
-          <%= render Form::InputComponent.new(name: "create[title]", title: "Title", placeholder: "A cool title", value: @post.title) %>
+          <%= render Form::InputComponent.new(name: "update[title]", title: "Title", placeholder: "A cool title", value: @post.title) %>
 
-          <%= render Form::InputComponent.new(name: "create[path]", title: "Path", placeholder: "something", value: @post.path) %>
+          <%= render Form::InputComponent.new(name: "update[path]", title: "Path", placeholder: "something", value: @post.path) %>
 
-          <%= render Form::InputComponent.new(name: "create[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
+          <%= render Form::InputComponent.new(name: "update[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
         </div>
 
-        <%= render Form::StackeditComponent.new %>
-
+        <%= render Form::StackeditComponent.new("update[content]", @post.content) %>
       </div>
     </div>
   </form>
