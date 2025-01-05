@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FluffyCarpet < Redcarpet::Render::HTML
-  # include Redcarpet::Render::SmartyPants
+  include Redcarpet::Render::SmartyPants
 
   def paragraph(text)
     %(<p>#{text}</p>)
