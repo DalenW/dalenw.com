@@ -22,9 +22,7 @@
           <%= render Form::InputComponent.new(name: "create[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
         </div>
 
-        <div>
-          <trix-editor></trix-editor>
-        </div>
+        <%= render Form::StackeditComponent.new %>
 
       </div>
     </div>

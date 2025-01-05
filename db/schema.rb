@@ -64,9 +64,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_022530) do
   create_table "posts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "title"
-    t.string "description"
-    t.string "path"
+    t.text "title"
+    t.text "description"
+    t.text "path"
+    t.text "content"
     t.timestamptz "publish_at", null: false
     t.integer "status", limit: 2, default: 0, null: false
     t.bigint "user_id"

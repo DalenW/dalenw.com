@@ -1,18 +1,9 @@
 // From https://github.com/benweet/stackedit.js
 
 const styleContent = `
-.stackedit-no-overflow {
-  overflow: hidden;
-}
-
 .stackedit-container {
-  background-color: rgba(160, 160, 160, 0.5);
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9999;
+  width: 100%;
+  min-height: 75vh;
 }
 
 .stackedit-hidden-container {
@@ -23,26 +14,13 @@ const styleContent = `
 }
 
 .stackedit-iframe-container {
-  background-color: #fff;
-  position: absolute;
-  margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 98%;
-  width: 98%;
-  max-width: 1280px;
-  border-radius: 2px;
-  overflow: hidden;
+  width: 100%;
+  min-height: 75vh;
 }
 
 .stackedit-iframe {
-  position: absolute;
-  height: 100%;
   width: 100%;
-  border: 0;
-  border-radius: 2px;
+  min-height: 75vh;
 }
 
 @media (max-width: 740px) {
@@ -131,7 +109,7 @@ class Stackedit {
     }
   }
 
-  openFile(file = {}, silent = false) {
+  openFile(file = {}, containerElement, silent = false) {
     // Close before opening a new iframe
     this.close();
 
@@ -155,12 +133,13 @@ class Stackedit {
 
     // Make the iframe
     createStyle();
-    this.$containerEl = document.createElement('div');
+    // this.$containerEl = document.createElement('div');
+    this.$containerEl = containerElement;
     this.$containerEl.className = silent
       ? 'stackedit-hidden-container'
       : 'stackedit-container';
     this.$containerEl.innerHTML = containerHtml;
-    document.body.appendChild(this.$containerEl);
+    // document.body.appendChild(this.$containerEl);
 
     // Load StackEdit in the iframe
     const iframeEl = this.$containerEl.querySelector('iframe');
