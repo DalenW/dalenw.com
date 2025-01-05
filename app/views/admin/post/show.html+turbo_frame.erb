@@ -3,9 +3,15 @@
   <%= render Form::ErrorComponent.new(@post.errors.messages) %>
 
   <div class="flex justify-between mb-4">
-    <p class="text-xl">
+    <div class="flex">
+      <a href="<%= admin_post_index_path %>" class="btn btn-primary btn-outline mr-4" data-turbo="false">
+        <%= tabler_icon 'arrow-left', class: 'h-5 w-5' %> Back to Post
+      </a>
+      <p class="text-xl">
       <%= @post.title %>
     </p>
+    </div>
+
 
     <div class="flex justify-end">
       <a href="<%= edit_admin_post_path @post %>" class="btn btn-primary">
@@ -39,7 +45,7 @@
 
   <div class="divider">Content</div>
 
-  <div class="prose">
+  <div data-controller="markdown--content" class="prose">
     <%== @markdown.render @post.content %>
   </div>
 

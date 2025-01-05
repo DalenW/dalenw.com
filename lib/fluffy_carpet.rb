@@ -8,7 +8,12 @@ class FluffyCarpet < Redcarpet::Render::HTML
   end
 
   def block_code(code, language)
-    %(<div data-controller="markdown--code" data-markdown--code-language-value="#{language}" data-markdown--code-code-value="#{code}"></div>)
+    case language
+    when 'mermaid'
+       %(<div><pre class="mermaid">#{code}</pre></div>)
+    else
+      %(<div data-controller="markdown--code" data-markdown--code-language-value="#{language}" data-markdown--code-code-value="#{code}"></div>)
+    end
   end
 
 end
