@@ -1,0 +1,44 @@
+<%= turbo_frame_tag @turbo_frame_tag do %>
+  <%= render Form::FlashComponent.new %>
+  <%= render Form::ErrorComponent.new(@post.errors.messages) %>
+
+  <div class="flex justify-between mb-4">
+    <p class="text-xl">
+      <%= @post.title %>
+    </p>
+
+    <div class="flex justify-end">
+      <a href="<%= edit_admin_post_path @post %>" class="btn btn-primary">
+        <%= tabler_icon 'edit', class: 'h-5 w-5' %> Edit
+      </a>
+    </div>
+  </div>
+
+  <div class="card bg-base-200 shadow-sm">
+    <div class="card-body">
+      <p>
+        <b>Title:</b> <%= @post.title %>
+      </p>
+      <p>
+        <b>Description:</b> <%= @post.description %>
+      </p>
+      <p>
+        <b>Path:</b> <%= @post.path %>
+      </p>
+      <p>
+        <b>Created At:</b> <%= @post.created_at %>
+      </p>
+      <p>
+        <b>Updated At:</b> <%= @post.updated_at %>
+      </p>
+      <p>
+        <b>Publish At:</b> <%= @post.publish_at %>
+      </p>
+    </div>
+  </div>
+
+  <div>
+    <%= @post.content %>
+  </div>
+
+<% end %>

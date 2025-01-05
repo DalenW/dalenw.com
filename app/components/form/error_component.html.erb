@@ -1,0 +1,15 @@
+<div>
+  <% @messages.each do |key, value| %>
+    <% value.each do |content| %>
+      <div class="alert alert-error alert-soft sm:alert-horizontal" role="alert">
+        <div>
+          <h4 class="font-bold">Error</h4>
+          <!-- form error message -->
+          <div class="text-xs">
+            <%= key %>: <%= content %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
