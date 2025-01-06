@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FluffyCarpet < Redcarpet::Render::HTML
-  include Redcarpet::Render::SmartyPants
+  # include Redcarpet::Render::SmartyPants
 
   def paragraph(text)
     %(<p>#{text}</p>)
@@ -9,10 +9,10 @@ class FluffyCarpet < Redcarpet::Render::HTML
 
   def block_code(code, language)
     case language
-    when 'mermaid'
+    when "mermaid"
        %(<div><pre class="mermaid">#{code}</pre></div>)
     else
-      %(<div data-controller="markdown--code" data-markdown--code-language-value="#{language}" data-markdown--code-code-value="#{code}"></div>)
+      %(<div data-controller="markdown--code" data-markdown--code-language-value="#{language}">#{code}</div>)
     end
   end
 

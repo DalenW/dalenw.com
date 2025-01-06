@@ -14,14 +14,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_022530) do
   create_schema "_timescaledb_cache"
   create_schema "_timescaledb_catalog"
   create_schema "_timescaledb_config"
+  create_schema "_timescaledb_debug"
   create_schema "_timescaledb_functions"
   create_schema "_timescaledb_internal"
   create_schema "timescaledb_experimental"
   create_schema "timescaledb_information"
+  create_schema "toolkit_experimental"
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "timescaledb"
+  enable_extension "timescaledb_toolkit"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
