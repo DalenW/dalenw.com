@@ -11,6 +11,7 @@ class Admin::PostController < AdminController
                      published_at: Time.now,
                      status: 0,
                      user: Current.user
+    @post.set_path
     @post.save
 
     redirect_to edit_admin_post_path @post
