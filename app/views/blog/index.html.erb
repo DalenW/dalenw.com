@@ -25,7 +25,7 @@
 
       <div class="col-span-1 bg-base-200 p-4">
         <% @posts.each do |post| %>
-          <a href="<%= blog_post_path post.path %>">
+          <a href="<%= blog_post_path post.path %>" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance">
             <div class="w-100 prose">
               <h3><%= post.title %></h3>
               <p><%= post.description %></p>
@@ -37,9 +37,9 @@
   </div>
 
   <div class="col-span-3">
-    <div class="p-4 h-screen w-full">
+    <div class="px-4 h-screen w-full overflow-auto overscroll-contain">
       <%= turbo_frame_tag @turbo_frame_tag, src: blog_post_path(@post.path), loading: :lazy do %>
-        <article data-controller="markdown--content" class="prose w-full mx-auto overscroll-none" data-turbo="false">
+        <article data-controller="markdown--content" class="prose w-full mx-auto" data-turbo="false">
           <%== @markdown.render @post.content %>
         </article>
       <% end %>

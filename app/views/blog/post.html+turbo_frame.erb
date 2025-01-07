@@ -1,5 +1,5 @@
 <%= turbo_frame_tag @turbo_frame_tag do %>
-  <article data-controller="markdown--content" class="prose h-screen w-full mx-auto overscroll-y-contain" data-turbo="false">
+  <article data-controller="markdown--content" class="prose h-screen w-full mx-auto" data-turbo="false">
     <%== @markdown.render @post.content %>
   </article>
 <% end %>
