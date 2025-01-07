@@ -30,8 +30,6 @@
         <div class="flex">
           <%= render Form::InputComponent.new(name: "update[title]", title: "Title", placeholder: "A cool title", value: @post.title) %>
 
-          <%= render Form::InputComponent.new(name: "update[path]", title: "Path", placeholder: "something", value: @post.path) %>
-
           <%= render Form::InputComponent.new(name: "update[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
         </div>
 

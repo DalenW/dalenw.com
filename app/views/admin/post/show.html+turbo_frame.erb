@@ -38,14 +38,14 @@
         <b>Updated At:</b> <%= @post.updated_at %>
       </p>
       <p>
-        <b>Publish At:</b> <%= @post.publish_at %>
+        <b>Published At:</b> <%= @post.published_at %>
       </p>
     </div>
   </div>
 
   <div class="divider">Content</div>
 
-  <div data-controller="markdown--content" class="prose">
+  <div data-controller="markdown--content" class="prose" data-turbo="false">
     <%== @markdown.render @post.content %>
   </div>
 

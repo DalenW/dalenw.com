@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration[8.0]
       t.text :path
       t.text :content
 
-      t.timestamptz :publish_at, null: false, index: true
+      t.timestamptz :published_at, null: false, index: true
 
       t.integer :status, default: 0, null: false, index: true, limit: 1
 

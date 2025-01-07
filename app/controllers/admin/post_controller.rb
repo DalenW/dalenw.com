@@ -8,7 +8,7 @@ class Admin::PostController < AdminController
 
   def new
     @post = Post.new title: "A new post",
-                     publish_at: Time.now,
+                     published_at: Time.now,
                      status: 0,
                      user: Current.user
     @post.save
@@ -27,7 +27,6 @@ class Admin::PostController < AdminController
   def update
     safe_params = params.require(:update).permit(
       :title,
-      :path,
       :description,
       :content
     )
