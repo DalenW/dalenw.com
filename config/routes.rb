@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  root "home#index"
+  root "blog#index"
 
   namespace :admin do
     scope :home do
@@ -22,5 +22,10 @@ Rails.application.routes.draw do
 
       resources :post
     end
+  end
+
+  scope :b, as: :blog do
+    get "/", to: "blog#index", as: :index
+    get "/:path", to: "blog#post", as: :post
   end
 end
