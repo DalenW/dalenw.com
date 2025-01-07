@@ -43,3 +43,6 @@ node_modules
 # Also it's a lot
 # see https://tailwindcss.com/docs/v4-beta#automatic-source-detection for adding a source back
 # /vendor/javascript/*
+
+# this showed up on my linux machine, no idea what it is. something like a docker log
+y
