@@ -39,9 +39,7 @@
   <div class="col-span-3">
     <div class="px-4 h-screen w-full overflow-auto overscroll-contain">
       <%= turbo_frame_tag @turbo_frame_tag do %>
-        <article data-controller="markdown--content" class="prose w-full mx-auto" data-turbo="false">
-          <%== @markdown.render @post.content %>
-        </article>
+        <%= render Blog::PostComponent.new @post %>
       <% end %>
     </div>
 

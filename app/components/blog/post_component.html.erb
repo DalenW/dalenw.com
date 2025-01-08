@@ -1,0 +1,11 @@
+<article data-controller="markdown--content" class="prose w-full mx-auto my-8" data-turbo="false">
+  <h1 class="text-center">
+    <%= @post.title %>
+  </h1>
+
+  <div class="flex items-center justify-center text-small">
+    <%= @post.published_at %>
+  </div>
+
+  <%== @markdown.render @post.content %>
+</article>
