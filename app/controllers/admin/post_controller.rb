@@ -29,14 +29,19 @@ class Admin::PostController < AdminController
     safe_params = params.require(:update).permit(
       :title,
       :description,
-      :content
+      :content,
+      :image_upload
     )
 
     safe_params.each do |key, value|
       safe_params[key] = value.strip if value.is_a? String
     end
 
-    @post.assign_attributes safe_params
+    @post.assign_attributes safe_params.except(:image_upload)
+
+    if safe_params[:image_upload].present?
+      @post.images.attach safe_params[:image_upload]
+    end
 
     if @post.invalid?
       flash[:error] = "Post could not be saved"

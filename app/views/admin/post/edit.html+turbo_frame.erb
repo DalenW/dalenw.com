@@ -1,5 +1,5 @@
 <%= turbo_frame_tag @turbo_frame_tag do %>
-  <form method="patch" action="<%= admin_post_path %>">
+  <form method="patch" action="<%= admin_post_path %>" data-controller="admin--post--edit" enctype="multipart/form-data">
 
     <%= render Form::FlashComponent.new %>
     <%= render Form::ErrorComponent.new(@post.errors.messages) %>
@@ -32,6 +32,40 @@
 
           <%= render Form::InputComponent.new(name: "update[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
         </div>
+
+        <div class="divider">Images</div>
+
+        <div>
+          <table class="table table-zebra">
+            <!-- head -->
+            <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+              <% @post.images.each do |image| %>
+                <tr>
+                  <td><img src="<%= rails_storage_proxy_path image %>" class="max-h-16"></td>
+                  <td><%= image.blob.filename %></td>
+                  <td>
+                    <%= render CopyToClipboardComponent.new(rails_storage_proxy_path image) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+
+
+        </div>
+
+        <input type="file" class="file-input" name="update[image_upload]" accept="image/*" data-admin--post--edit-target="fileUpload">
+
+        <div class="divider">Content</div>
 
         <%= render Form::StackeditComponent.new("update[content]", @post.content) %>
       </div>
