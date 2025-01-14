@@ -15,15 +15,19 @@
           </div>
 
           <div class="prose">
-            <p>
+            <small>
+              Last Update:
+            </small>
+            <div class="tooltip" data-tip="MM/DD/YYYY">
               <small>
-                Last Update: <%= GIT_TIME.strftime('%m/%d/%Y') %>
+                <%= GIT_TIME.strftime('%m/%d/%Y') %>
               </small>
-              <br>
-              <small>
-                Version ID: <a href="<%= new_session_path %>" class=""><%= GIT_COMMIT[0..6] %></a>
-              </small>
-            </p>
+            </div>
+
+            <br>
+            <small>
+              Version ID: <a href="<%= new_session_path %>" class="link link-hover" data-turbo-prefetch="false"><%= GIT_COMMIT[0..6] %></a>
+            </small>
 
           </div>
         </div>
@@ -36,17 +40,17 @@
             <div class="w-full prose hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
               <% if post.cover_image.blank? %>
                   <div class="ms-2">
-                    <h3><%= post.title %></h3>
+                    <h3 class="mt-0"><%= post.title %></h3>
                     <p><%= post.description %></p>
                   </div>
               <% else %>
                 <div class="grid grid-flow-row grid-cols-3 grid-rows-1">
-                  <div class="col-span-1">
-                    <img class="object-cover h-24 p-2 m-0" src="<%= url_for post.cover_image %>">
-                  </div>
-                  <div class="col-span-2">
-                    <h3><%= post.title %></h3>
+                  <div class="col-span-2 ms-2">
+                    <h3 class="mt-0"><%= post.title %></h3>
                     <p><%= post.description %></p>
+                  </div>
+                  <div class="col-span-1">
+                    <img class="object-cover w-24 h-24 p-2 mt-0 mb-0" src="<%= url_for post.cover_image %>">
                   </div>
                 </div>
               <% end %>
