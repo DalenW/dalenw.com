@@ -36,7 +36,7 @@
 
       <div class="col-span-1 bg-base-200 p-0">
         <% @posts.each do |post| %>
-          <a href="<%= blog_post_path post.path %>" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance">
+          <a href="<%= blog_post_path post.path %>" class="w-full flex justify-end" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance">
             <div class="w-full prose hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
               <% if post.cover_image.blank? %>
                   <div class="ms-2">
