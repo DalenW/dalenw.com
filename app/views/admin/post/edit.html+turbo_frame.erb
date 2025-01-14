@@ -1,5 +1,5 @@
 <%= turbo_frame_tag @turbo_frame_tag do %>
-  <form method="patch" action="<%= admin_post_path %>" data-controller="admin--post--edit" enctype="multipart/form-data">
+  <form method="patch" action="<%= admin_post_path @post.id %>" data-controller="admin--post--edit" enctype="multipart/form-data">
 
     <%= render Form::FlashComponent.new %>
     <%= render Form::ErrorComponent.new(@post.errors.messages) %>
@@ -8,7 +8,7 @@
     <div class="flex justify-between mb-4">
 
       <div class="flex">
-        <a href="<%= admin_post_path @post %>" class="btn btn-primary btn-outline mr-4">
+        <a href="<%= admin_post_path @post %>" class="btn btn-primary btn-outline mr-4" data-turbo-action="advance">
           <%= tabler_icon 'arrow-left', class: 'h-5 w-5' %> Back to Post
         </a>
 
@@ -50,8 +50,17 @@
                 <tr>
                   <td><img src="<%= rails_storage_proxy_path image %>" class="max-h-16"></td>
                   <td><%= image.blob.filename %></td>
-                  <td>
+                  <td class="flex justify-end">
                     <%= render CopyToClipboardComponent.new(rails_storage_proxy_path image) %>
+                    <div class="ms-1">
+                      <% if @post.cover_image.blob.id == image.blob.id %>
+                        <div class="btn btn-info btn-outline">
+                          Currently Cover Image
+                        </div>
+                      <% else %>
+                        <a href="<%= admin_post_set_cover_image_path attachment_id: image.id, post_id: @post.id %>" class="btn btn-info" data-turbo-action="replace" data-turbo-method="post" data-turbo-prefetch="false">Make Cover Image</a>
+                      <% end %>
+                    </div>
                   </td>
                 </tr>
               <% end %>

@@ -54,8 +54,27 @@ class Admin::PostController < AdminController
     end
   end
 
+  def set_cover_image
+    attachment_id = params[:attachment_id]
+    attachment = @post.images.find(attachment_id)
+
+    if attachment.blank?
+      flash[:error] = "No attachment found"
+      return render :edit, status: :unprocessable_entity
+    end
+
+    unless attachment.image?
+      flash[:error] = "Attachment #{attachment_id} is not an image"
+      return render :edit, status: :unprocessable_entity
+    end
+
+    @post.cover_image.attach attachment.blob
+    flash[:success] = "Cover image set #{Time.now}"
+    render :edit
+  end
+
   private
   def find_post
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:id].blank? ? params[:post_id] : params[:id])
   end
 end

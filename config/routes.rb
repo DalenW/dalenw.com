@@ -19,8 +19,10 @@ Rails.application.routes.draw do
   namespace :admin do
     scope :home do
       get "/", to: "home#index", as: :home
+    end
 
-      resources :post
+    resources :post do
+      match "set_cover_image/:attachment_id", to: "post#set_cover_image", via: [ :get, :post ], as: :set_cover_image
     end
   end
 

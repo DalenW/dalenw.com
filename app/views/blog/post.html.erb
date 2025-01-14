@@ -23,12 +23,24 @@
 
       </div>
 
-      <div class="col-span-1 bg-base-200 p-4">
+      <div class="col-span-1 bg-base-200 p-0">
         <% @posts.each do |post| %>
           <a href="<%= blog_post_path post.path %>" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance">
-            <div class="w-100 prose">
-              <h3><%= post.title %></h3>
-              <p><%= post.description %></p>
+            <div class="w-full prose hover:bg-base-100 py-2 m-0">
+              <% if post.cover_image.blank? %>
+                  <h3><%= post.title %></h3>
+                  <p><%= post.description %></p>
+              <% else %>
+                <div class="grid grid-flow-row grid-cols-3 grid-rows-1">
+                  <div class="col-span-1">
+                    <img class="object-cover w-24 h-24 p-2 m-0" src="<%= url_for post.cover_image %>">
+                  </div>
+                  <div class="col-span-2">
+                    <h3><%= post.title %></h3>
+                    <p><%= post.description %></p>
+                  </div>
+                </div>
+              <% end %>
             </div>
           </a>
         <% end %>
@@ -37,7 +49,7 @@
   </div>
 
   <div class="col-span-3">
-    <div class="px-4 h-screen w-full overflow-auto overscroll-contain">
+    <div class="h-screen w-full overflow-auto overscroll-contain">
       <%= turbo_frame_tag @turbo_frame_tag do %>
         <%= render Blog::PostComponent.new @post %>
       <% end %>

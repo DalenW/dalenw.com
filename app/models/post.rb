@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   belongs_to :user
 
   has_many_attached :images
+  has_one_attached :cover_image
 
   ### ENUMS
   # ====================================================================================================================
@@ -29,7 +30,6 @@ class Post < ApplicationRecord
 
   ### METHODS
   # ====================================================================================================================
-
 
   def set_path
     assign_attributes path: "#{published_at.year}-#{published_at.month}-#{published_at.day}-#{title.parameterize}-#{id}"
