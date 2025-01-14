@@ -1,12 +1,12 @@
 <% if @post.cover_image.blank? %>
-  <div class="prose mt-8">
-    <h1 class="text-center">
+  <div class="mt-8 w-full">
+    <h1 class="text-center text-4xl font-bold mb-2">
       <%= @post.title %>
     </h1>
 
-    <div class="flex items-center justify-center text-small">
+    <p class="text-center text-lg">
       <%= @post.published_at %>
-    </div>
+    </p>
   </div>
 <% else %>
   <div class="relative w-full h-96 overflow-hidden">
