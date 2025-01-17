@@ -29,7 +29,12 @@
         <b>Description:</b> <%= @post.description %>
       </p>
       <p>
-        <b>Path:</b> <%= @post.path %>
+        <b>State:</b> <%= @post.status.humanize %>
+      </p>
+      <p>
+        <a href="<%= blog_post_path @post.path %>" class="link" data-turbo="false">
+          <b>Path:</b> <%= @post.path %>
+        </a>
       </p>
       <p>
         <b>Created At:</b> <%= @post.created_at %>
@@ -45,7 +50,7 @@
 
   <div class="divider">Content</div>
 
-  <div data-controller="markdown--content" class="prose" data-turbo="false">
+  <div data-controller="markdown--content" class="prose mx-auto" data-turbo="false">
     <%== @markdown.render @post.content %>
   </div>
 

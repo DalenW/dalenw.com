@@ -29,6 +29,7 @@ class Admin::PostController < AdminController
     safe_params = params.require(:update).permit(
       :title,
       :description,
+      :status,
       :content,
       :image_upload
     )

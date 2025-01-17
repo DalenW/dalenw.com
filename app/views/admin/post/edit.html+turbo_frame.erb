@@ -31,6 +31,13 @@
           <%= render Form::InputComponent.new(name: "update[title]", title: "Title", placeholder: "A cool title", value: @post.title) %>
 
           <%= render Form::InputComponent.new(name: "update[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
+
+          <fieldset class="fieldset">
+            <legend class="fieldset-legend">State</legend>
+            <select class="select" name="update[status]">
+              <%= render Form::EnumOptionsComponent.new(Post.statuses, @post.status) %>
+            </select>
+          </fieldset>
         </div>
 
         <div class="divider">Images</div>
