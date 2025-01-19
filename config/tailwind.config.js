@@ -1,3 +1,5 @@
+// this file is useless with tailwind 4 but we'll keep it just in case
+
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
@@ -6,17 +8,5 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}'
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
-    },
-  },
-  plugins: [
-    // require('@tailwindcss/forms'),
-    // require('@tailwindcss/typography'),
-    // require('@tailwindcss/container-queries'),
   ]
 }

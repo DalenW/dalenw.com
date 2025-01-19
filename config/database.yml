@@ -22,10 +22,6 @@ default: &default
 
 development:
   <<: *default
-  host: localhost
-  port: 5432
-  username: postgres
-  password: password
   database: dalenw_development
 
   # The specified database role being used to connect to PostgreSQL.
@@ -60,12 +56,6 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-
-  host: localhost
-  port: 5432
-  username: postgres
-  password: password
-
   database: dalenw_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -91,9 +81,8 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: dalenw_production
-    username: dalenw
-    password: <%= ENV["DALENW_DATABASE_PASSWORD"] %>
+
+    url: <%= ENV['DATABASE_URL'] %>
   cache:
     <<: *primary_production
     database: dalenw_production_cache

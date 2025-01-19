@@ -1,0 +1,91 @@
+<%= turbo_frame_tag @turbo_frame_tag do %>
+  <form method="patch" action="<%= admin_post_path @post.id %>" data-controller="admin--post--edit" enctype="multipart/form-data">
+
+    <%= render Form::FlashComponent.new %>
+    <%= render Form::ErrorComponent.new(@post.errors.messages) %>
+
+
+    <div class="flex justify-between mb-4">
+
+      <div class="flex">
+        <a href="<%= admin_post_path @post %>" class="btn btn-primary btn-outline mr-4" data-turbo-action="advance">
+          <%= tabler_icon 'arrow-left', class: 'h-5 w-5' %> Back to Post
+        </a>
+
+        <p class="text-xl">
+          Edit
+        </p>
+      </div>
+
+
+      <div class="flex justify-end">
+        <button type="submit" class="btn btn-success">
+          <%= tabler_icon 'device-floppy', class: 'h-5 w-5' %> Save
+        </button>
+      </div>
+    </div>
+
+    <div class="card bg-base-200 shadow-sm">
+      <div class="card-body">
+        <div class="flex">
+          <%= render Form::InputComponent.new(name: "update[title]", title: "Title", placeholder: "A cool title", value: @post.title) %>
+
+          <%= render Form::InputComponent.new(name: "update[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
+
+          <fieldset class="fieldset">
+            <legend class="fieldset-legend">State</legend>
+            <select class="select" name="update[status]">
+              <%= render Form::EnumOptionsComponent.new(Post.statuses, @post.status) %>
+            </select>
+          </fieldset>
+        </div>
+
+        <div class="divider">Images</div>
+
+        <div>
+          <table class="table table-zebra">
+            <!-- head -->
+            <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+              <% @post.images.each do |image| %>
+                <tr>
+                  <td><img src="<%= rails_storage_proxy_path image %>" class="max-h-16"></td>
+                  <td><%= image.blob.filename %></td>
+                  <td class="flex justify-end">
+                    <%= render CopyToClipboardComponent.new(rails_storage_proxy_path image) %>
+                    <div class="ms-1">
+                      <% if (@post.cover_image.present? ? (@post.cover_image.blob.id == image.blob.id) : false) %>
+                        <div class="btn btn-info btn-outline">
+                          Currently Cover Image
+                        </div>
+                      <% else %>
+                        <a href="<%= admin_post_set_cover_image_path attachment_id: image.id, post_id: @post.id %>" class="btn btn-info" data-turbo-action="replace" data-turbo-method="post" data-turbo-prefetch="false">Make Cover Image</a>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+
+
+
+        </div>
+
+        <input type="file" class="file-input" name="update[image_upload]" accept="image/*" data-admin--post--edit-target="fileUpload">
+
+        <div class="divider">Content</div>
+
+        <%= render Form::StackeditComponent.new("update[content]", @post.content) %>
+      </div>
+    </div>
+  </form>
+
+<% end %>

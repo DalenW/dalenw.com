@@ -35,3 +35,17 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+config/application.yml
+node_modules
+
+# normally I'd keep this but tailwind 4 is reading the vendor asset files and it's causing issues.
+# Also it's a lot
+# see https://tailwindcss.com/docs/v4-beta#automatic-source-detection for adding a source back
+# /vendor/javascript/*
+
+# this showed up on my linux machine, no idea what it is. something like a docker log
+y
+/config/credentials/development.key
+
+/config/credentials/production.key

@@ -1,0 +1,119 @@
+services:
+
+  web:
+    image: dalenw/dalenw.com:latest
+    depends_on:
+      - timescale
+    networks:
+      - dalenw-com-net
+      - traefik-public
+    restart: unless-stopped
+    environment:
+      RAILS_ENV: production
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      DATABASE_URL: "postgresql://root:${POSTGRES_PASSWORD}@timescale:5432/dalenw_production"
+      HOST_URL: dalenw.com
+      RAILS_LOG_TO_STDOUT: "true"
+    healthcheck:
+      test: curl --fail 127.0.0.1:3000/up || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.dalenwcom-http.rule=Host(`dalenwcom.dalenw.net`,`dalenw.com`)
+        - traefik.http.routers.dalenwcom-http.entrypoints=http
+        - traefik.http.routers.dalenwcom-http.middlewares=https-redirect
+        - traefik.http.routers.dalenwcom-https.rule=Host(`dalenwcom.dalenw.net`,`dalenw.com`)
+        - traefik.http.routers.dalenwcom-https.entrypoints=https
+        - traefik.http.routers.dalenwcom-https.tls=true
+        - traefik.http.routers.dalenwcom-https.tls.certresolver=cloudflare
+        - traefik.http.services.dalenwcom.loadbalancer.server.port=3000
+
+
+
+  timescale:
+    image: timescale/timescaledb-ha:pg16
+    restart: always
+    networks:
+      - dalenw-com-net
+    volumes:
+      - /docker_volume/dalenw_db:/home/postgres/pgdata/data
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    deploy:
+      placement:
+        constraints:
+          - node.labels.gluster == true
+
+  pgbackweb:
+    image: eduardolat/pgbackweb:latest
+    # ports:
+    # - "8085:8085" # Access the web interface at http://localhost:8085
+    networks:
+      - dalenw-com-net
+      - traefik-public
+      # volumes:
+      # - ./backups:/backups # If you only use S3 destinations, you don't need this volume
+    environment:
+      PBW_ENCRYPTION_KEY: ${PGBACKWEB_KEY} # Change this to a strong key
+      PBW_POSTGRES_CONN_STRING: "postgresql://root:${POSTGRES_PASSWORD}@timescale:5432/pgbackweb?sslmode=disable" # had to manually create this database
+      TZ: "America/Denver" # Set your timezone, optional
+    depends_on:
+      - timescale
+    deploy:
+      placement:
+        constraints:
+          - node.labels.gluster == true
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.pgbackweb-http.rule=Host(`pgbackweb.dalenw.net`)
+        - traefik.http.routers.pgbackweb-http.entrypoints=http
+        - traefik.http.routers.pgbackweb-http.middlewares=https-redirect
+        - traefik.http.routers.pgbackweb-https.rule=Host(`pgbackweb.dalenw.net`)
+        - traefik.http.routers.pgbackweb-https.entrypoints=https
+        - traefik.http.routers.pgbackweb-https.tls=true
+        - traefik.http.routers.pgbackweb-https.tls.certresolver=cloudflare
+        - traefik.http.services.pgbackweb.loadbalancer.server.port=8085
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    tty: true
+    stdin_open: true
+    volumes:
+      - /docker_volume/dalenw_cloudbeaver:/opt/cloudbeaver/workspace
+    networks:
+      - dalenw-com-net
+      - traefik-public
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.cloudbeaver-http.rule=Host(`cloudbeaver.dalenw.net`)
+        - traefik.http.routers.cloudbeaver-http.entrypoints=http
+        - traefik.http.routers.cloudbeaver-http.middlewares=https-redirect
+        - traefik.http.routers.cloudbeaver-https.rule=Host(`cloudbeaver.dalenw.net`)
+        - traefik.http.routers.cloudbeaver-https.entrypoints=https
+        - traefik.http.routers.cloudbeaver-https.tls=true
+        - traefik.http.routers.cloudbeaver-https.tls.certresolver=cloudflare
+        - traefik.http.services.cloudbeaver.loadbalancer.server.port=8978
+
+
+networks:
+  dalenw-com-net:
+    driver: overlay
+  traefik-public:
+    external: true

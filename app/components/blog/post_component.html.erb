@@ -1,0 +1,26 @@
+<% if @post.cover_image.blank? %>
+  <div class="mt-8 w-full">
+    <h1 class="text-center text-4xl font-bold mb-2">
+      <%= @post.title %>
+    </h1>
+
+    <p class="text-center text-lg">
+      <%= @post.published_at %>
+    </p>
+  </div>
+<% else %>
+  <div class="relative w-full h-96 overflow-hidden">
+    <!-- Background image -->
+    <img src="<%= url_for @post.cover_image %>" alt="Background" class="absolute inset-0 w-full h-full object-cover blur-sm" />
+
+    <!-- Overlay with text -->
+    <div class="relative z-10 flex flex-col items-center justify-center w-full h-full text-center p-4 hero-overlay">
+      <h1 class="text-4xl font-bold mb-2"><%= @post.title %></h1>
+      <p class="text-lg"><%= @post.published_at %></p>
+    </div>
+  </div>
+<% end %>
+
+<article data-controller="markdown--content" class="prose w-full mx-auto my-8" data-turbo="false">
+  <%== @markdown.render @post.content %>
+</article>

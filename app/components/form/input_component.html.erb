@@ -1,0 +1,31 @@
+<fieldset class="fieldset mb-2 me-2">
+  <legend class="fieldset-legend">
+    <label for="<%= @id %>">
+      <%= @title %>
+    </label>
+  </legend>
+  <input
+    type="<%= @type %>"
+    class="input <%= @input_classes %>"
+    placeholder="<%= @placeholder %>"
+    value="<%= @value %>"
+    id="<%= @id %>"
+    name="<%= @name %>"
+    autocomplete="<%= @autocomplete %>"
+
+    <% if @required %>
+      required
+    <% end %>
+
+    <% if @readonly %>
+      readonly
+    <% end %>
+
+    <% if @disabled %>
+      disabled
+    <% end %>
+  >
+  <p class="fieldset-label">
+    <%= @helper_text %>
+  </p>
+</fieldset>

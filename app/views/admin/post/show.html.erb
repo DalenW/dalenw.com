@@ -1,0 +1,3 @@
+<%= turbo_frame_tag @turbo_frame_tag, src: admin_post_path(@post), loading: :lazy do %>
+  <%= render LoadingComponent.new %>
+<% end %>
