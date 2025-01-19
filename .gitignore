@@ -46,3 +46,6 @@ node_modules
 
 # this showed up on my linux machine, no idea what it is. something like a docker log
 y
+/config/credentials/development.key
+
+/config/credentials/production.key

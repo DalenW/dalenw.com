@@ -1,7 +1,8 @@
 class BlogController < ApplicationController
   allow_unauthenticated_access
   before_action { @turbo_frame_tag = "post" }
-  before_action { @posts = Post.where(status: Post.statuses[:published]).order(published_at: :desc) }
+  before_action :posts
+
   def index
     @post = @posts.last
 
@@ -27,5 +28,11 @@ class BlogController < ApplicationController
 
     render nothing: true, status: :not_found
 
+  end
+
+  private
+  def posts
+    # TODO: Verify that this uses the same timezone as the published at field so it's accurate
+    @posts = Post.where(status: Post.statuses[:published], published_at: ...Time.now).order(published_at: :desc)
   end
 end
