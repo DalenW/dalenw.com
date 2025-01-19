@@ -1,5 +1,5 @@
 <% if @post.cover_image.blank? %>
-  <div class="mt-8 w-full">
+  <div class="lg:mt-8 mt-12 w-full">
     <h1 class="text-center text-4xl font-bold mb-2">
       <%= @post.title %>
     </h1>
@@ -21,6 +21,6 @@
   </div>
 <% end %>
 
-<article data-controller="markdown--content" class="prose w-full mx-auto my-8" data-turbo="false">
+<article data-controller="markdown--content" class="prose w-full my-8 mx-auto px-8" data-turbo="false">
   <%== @markdown.render @post.content %>
 </article>
