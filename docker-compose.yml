@@ -11,7 +11,7 @@ services:
     environment:
       RAILS_ENV: production
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-      DATABASE_URL: "postgres://root:${POSTGRES_PASSWORD}@timescale:5432?sslmode=disable"
+      DATABASE_URL: "postgresql://root:${POSTGRES_PASSWORD}@timescale:5432/dalenw_production"
       HOST_URL: dalenw.com
       RAILS_LOG_TO_STDOUT: "true"
     healthcheck:
@@ -67,7 +67,7 @@ services:
       # - ./backups:/backups # If you only use S3 destinations, you don't need this volume
     environment:
       PBW_ENCRYPTION_KEY: ${PGBACKWEB_KEY} # Change this to a strong key
-      PBW_POSTGRES_CONN_STRING: "postgresql://root:${POSTGRES_PASSWORD}@timescale:5432/pgbackweb?sslmode=disable"
+      PBW_POSTGRES_CONN_STRING: "postgresql://root:${POSTGRES_PASSWORD}@timescale:5432/pgbackweb?sslmode=disable" # had to manually create this database
       TZ: "America/Denver" # Set your timezone, optional
     depends_on:
       - timescale
@@ -87,6 +87,29 @@ services:
         - traefik.http.routers.pgbackweb-https.tls=true
         - traefik.http.routers.pgbackweb-https.tls.certresolver=cloudflare
         - traefik.http.services.pgbackweb.loadbalancer.server.port=8085
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    tty: true
+    stdin_open: true
+    volumes:
+      - /docker_volume/dalenw_cloudbeaver:/opt/cloudbeaver/workspace
+    networks:
+      - dalenw-com-net
+      - traefik-public
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.cloudbeaver-http.rule=Host(`cloudbeaver.dalenw.net`)
+        - traefik.http.routers.cloudbeaver-http.entrypoints=http
+        - traefik.http.routers.cloudbeaver-http.middlewares=https-redirect
+        - traefik.http.routers.cloudbeaver-https.rule=Host(`cloudbeaver.dalenw.net`)
+        - traefik.http.routers.cloudbeaver-https.entrypoints=https
+        - traefik.http.routers.cloudbeaver-https.tls=true
+        - traefik.http.routers.cloudbeaver-https.tls.certresolver=cloudflare
+        - traefik.http.services.cloudbeaver.loadbalancer.server.port=8978
 
 
 networks:

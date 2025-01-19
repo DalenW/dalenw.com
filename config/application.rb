@@ -23,5 +23,17 @@ module Dalenw
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    ActiveRecord::SchemaDumper.ignore_tables = %w[
+      _timescaledb_cache
+      _timescaledb_catalog
+      _timescaledb_config
+      _timescaledb_functions
+      _timescaledb_internal
+      timescaledb_experimental
+      timescaledb_information
+    ]
+
+    # config.active_record.schema_format = :sql
   end
 end

@@ -29,11 +29,11 @@ RUN gem install bundler \
 
 RUN npm install
 
+# Remove folders not needed in resulting image
+RUN rm -rf tmp/cache spec
+
 COPY . .
 
 RUN SECRET_KEY_BASE_DUMMY=1 TAILWINDCSS_INSTALL_DIR=node_modules/.bin ./bin/rails assets:precompile
 
-# Remove folders not needed in resulting image
-RUN rm -rf tmp/cache spec
-
-CMD ["bundle", "exec", "rails"]
+CMD ["bundle", "exec", "rake", "entrypoint:init"]
