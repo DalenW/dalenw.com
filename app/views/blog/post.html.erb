@@ -87,7 +87,7 @@
               <a href="/" class="link link-hover font-bold" data-turbo="false">DalenW.com</a>
             </h1>
 
-            <button type="button" class="btn btn-primary" data-action="blog--post#hidePosts">
+            <button type="button" class="btn btn-primary btn-sm" data-action="blog--post#hidePosts">
               <%= tabler_icon 'x', class: 'h-5 w-5' %>
             </button>
           </div>
@@ -151,16 +151,15 @@
       </footer>
 
     </div>
-
   </div>
 
 
   <!-- show posts -->
   <div class="lg:col-span-3">
     <div class="h-screen w-full overflow-auto overscroll-contain">
-      <div class="absolute lg:hidde z-20">
-        <button type="button" class="btn btn-primary ms-4 mt-4" data-action="blog--post#showPosts">
-          Posts
+      <div class="fixed lg:hidde z-20">
+        <button type="button" class="btn btn-primary btn-sm ms-4 mt-4" data-action="blog--post#showPosts">
+          <%= tabler_icon 'layout-sidebar-left-expand-filled', class: 'h-5 w-5' %>
         </button>
       </div>
       <div>
