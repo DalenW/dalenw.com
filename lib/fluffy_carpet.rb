@@ -6,7 +6,7 @@ class FluffyCarpet < Redcarpet::Render::HTML
   include TablerIconsRuby::Helper
 
   def image(link, title, alt_text)
-    %(<img src="#{link}" alt="#{alt_text}" loading="lazy" data-title="#{title}">)
+    %(<img src="#{link}" alt="#{alt_text}" loading="lazy" data-title="#{title}" data-controller="components--expand-image">)
   end
 
   def link(link, title, content)
@@ -43,12 +43,30 @@ class FluffyCarpet < Redcarpet::Render::HTML
         end
 
 
-        html += %(<div id="#{item_id}" class="carousel-item relative w-full">
-                    <img src="#{line}" class="object-contain" loading="lazy">
-                    <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                      <a href="##{previous_item_id}" class="btn btn-circle">#{tabler_icon('chevron-left', class: 'h-5 w-5')}</a>
-                      <a href="##{next_item_id}" class="btn btn-circle">#{tabler_icon('chevron-right', class: 'h-5 w-5')}</a>
+        html += %(<div id="#{item_id}" class="carousel-item relative w-full" data-controller="blog--gallery-image">
+                    <div class="my-auto">
+                      <img src="#{line}" class="object-contain" loading="lazy">
                     </div>
+                    <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between align-middle">
+                      <div class="flex flex-col align-middle">
+                        <a href="##{previous_item_id}" class="btn btn-circle opacity-0">#{tabler_icon('chevron-left', class: 'h-5 w-5')}</a>
+                        <a href="##{previous_item_id}" class="btn btn-circle my-2">#{tabler_icon('chevron-left', class: 'h-5 w-5')}</a>
+                        <a data-action="blog--gallery-image#expand" class="btn btn-circle">#{tabler_icon('arrows-maximize', class: 'h-5 w-5')}</a>
+                      </div>
+                      <div class="flex flex-col align-middle">
+                        <a href="##{next_item_id}" class="btn btn-circle opacity-0">#{tabler_icon('chevron-right', class: 'h-5 w-5')}</a>
+                        <a href="##{next_item_id}" class="btn btn-circle my-2">#{tabler_icon('chevron-right', class: 'h-5 w-5')}</a>
+                        <a href="##{next_item_id}" class="btn btn-circle opacity-0">#{tabler_icon('chevron-right', class: 'h-5 w-5')}</a>
+                      </div>
+                    </div>
+                    <dialog class="modal" data-blog--gallery-image-target="modal">
+                      <div class="modal-box w-11/12 max-w-5xl">
+                        <img src="#{line}" class="" loading="lazy">
+                      </div>
+                      <form method="dialog" class="modal-backdrop">
+                        <button>close</button>
+                      </form>
+                    </dialog>
                   </div>)
       end
 
