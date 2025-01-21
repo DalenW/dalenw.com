@@ -10,6 +10,10 @@
         <%= @post.published_at.strftime("%m/%d/%Y") %>
       </p>
     </div>
+
+    <p class="text-center text-lg">
+      Views: <%= @post.views_count %>
+    </p>
   </div>
 <% else %>
   <div class="relative w-full h-96 overflow-hidden">
@@ -19,10 +23,14 @@
     <!-- Overlay with text -->
     <div class="relative z-10 flex flex-col items-center justify-center w-full h-full text-center p-4 hero-overlay">
       <h1 class="text-4xl font-bold mb-2"><%= @post.title %></h1>
-      <p class="text-lg">
-        <div class="tooltip" data-tip="MM/DD/YYYY">
+      <div class="tooltip" data-tip="MM/DD/YYYY">
+        <p class="text-center text-lg">
           <%= @post.published_at.strftime("%m/%d/%Y") %>
-        </div>
+        </p>
+      </div>
+
+      <p class="text-center text-lg">
+        Views: <%= @post.views_count %>
       </p>
     </div>
   </div>

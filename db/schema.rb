@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_03_023431) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_21_000508) do
   create_schema "_timescaledb_cache"
   create_schema "_timescaledb_catalog"
   create_schema "_timescaledb_config"
@@ -71,6 +71,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_023431) do
     t.timestamptz "published_at", null: false
     t.integer "status", limit: 2, default: 0, null: false
     t.bigint "user_id"
+    t.bigint "views_count", default: 0
     t.index ["published_at"], name: "index_posts_on_published_at"
     t.index ["status"], name: "index_posts_on_status"
     t.index ["user_id"], name: "index_posts_on_user_id"
