@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
-// Connects to data-controller="component--copy-to-clipboard"
+// Connects to data-controller="components--copy-to-clipboard"
 export default class extends Controller {
   static values = {
     value: String

@@ -84,6 +84,18 @@
     src: url("TX-02.woff2") format("woff");
 }
 
+@layer base {
+  code::before {
+    content: none !important;
+  }
+
+  code::after {
+    content: none !important;
+  }
+}
+
+
+
 /*
 
 @layer components {

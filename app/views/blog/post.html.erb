@@ -1,8 +1,9 @@
-<div class="grid grid-flow-row grid-cols-5 grid-rows-1">
+<div class="lg:grid lg:grid-flow-row lg:grid-cols-5 lg:grid-rows-1" data-controller="blog--post">
 
-  <div class="col-span-2 h-screen">
-    <div class="grid grid-flow-row grid-cols-3 grid-rows-1">
-      <div class="col-span-1 bg-base-200 p-4 h-screen">
+  <!-- desktop menu -->
+  <div class="lg:col-span-2 lg:h-screen lg:block hidden">
+    <div class="grid grid-flow-row grid-cols-6 grid-rows-1">
+      <div class="2xl:col-span-3 lg:col-span-3 bg-base-200 p-4 h-screen">
         <div class="flex flex-col justify-between h-full">
           <header>
             <div class="prose">
@@ -45,7 +46,7 @@
         </div>
       </div>
 
-      <div class="col-span-2 bg-base-200 p-0">
+      <div class="2xl:col-span-3 lg:col-span-3 bg-base-200 p-0">
         <% @posts.each do |post| %>
           <a href="<%= blog_post_path post.path %>" class="w-full flex justify-end" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance">
             <div class="w-full prose hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
@@ -72,11 +73,100 @@
     </div>
   </div>
 
-  <div class="col-span-3">
+  <!-- mobile menu -->
+  <div class="lg:col-span-0 absolute -left-full z-30 transition-all duration-500" data-blog--post-target="mobileMenu">
+    <div class="bg-base-200 w-screen h-screen mx-auto px-8">
+      <div class="flex justify-end w-full">
+
+      </div>
+
+      <header class="border-b-2 border-dashed pb-4">
+        <div class="prose">
+          <div class="flex justify-between mt-4">
+            <h1>
+              <a href="/" class="link link-hover font-bold" data-turbo="false">DalenW.com</a>
+            </h1>
+
+            <button type="button" class="btn btn-primary btn-sm" data-action="blog--post#hidePosts">
+              <%= tabler_icon 'x', class: 'h-5 w-5' %>
+            </button>
+          </div>
+
+
+          <p>
+            Welcome to my website. You can assume that everything on here is written by me.
+          </p>
+
+          <a href="https://github.com/DalenW" class="link link-hover font-bold flex" data-turbo="false">
+            <%= tabler_icon 'brand-github', class: 'h-5 w-5 me-2' %> Github
+          </a>
+        </div>
+      </header>
+
+      <div>
+        <% @posts.each do |post| %>
+        <a href="<%= blog_post_path post.path %>" class="w-full flex justify-end" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance" data-action="blog--post#hidePosts">
+          <div class="w-full prose hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
+            <% if post.cover_image.blank? %>
+              <div class="ms-2">
+                <h3 class="mt-0"><%= post.title %></h3>
+                <p><%= post.description %></p>
+              </div>
+            <% else %>
+              <div class="grid grid-flow-row grid-cols-3 grid-rows-1">
+                <div class="col-span-2 ms-2">
+                  <h3 class="mt-0"><%= post.title %></h3>
+                  <p><%= post.description %></p>
+                </div>
+                <div class="col-span-1">
+                  <img class="object-cover w-24 h-24 p-2 mt-0 mb-0 ms-auto ms-auto me-2" src="<%= url_for post.cover_image.variant(resize_to_fill: [200, 200]) %>">
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </a>
+        <% end %>
+      </div>
+
+      <footer>
+        <div class="prose">
+          <small>
+            Your IP address: <%= get_ip_address %>
+          </small>
+          <br>
+          <small>
+            Last Update:
+          </small>
+          <div class="tooltip" data-tip="MM/DD/YYYY">
+            <small>
+              <%= GIT_TIME.strftime('%m/%d/%Y') %>
+            </small>
+          </div>
+
+          <br>
+          <small>
+            Version ID: <a href="<%= new_session_path %>" class="link link-hover font-light" data-turbo-prefetch="false"><%= GIT_COMMIT[0..6] %></a>
+          </small>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+
+  <!-- show posts -->
+  <div class="lg:col-span-3">
     <div class="h-screen w-full overflow-auto overscroll-contain">
-      <%= turbo_frame_tag @turbo_frame_tag do %>
-        <%= render Blog::PostComponent.new @post %>
-      <% end %>
+      <div class="fixed lg:hidden z-20">
+        <button type="button" class="btn btn-primary btn-sm ms-4 mt-4" data-action="blog--post#showPosts">
+          <%= tabler_icon 'layout-sidebar-left-expand-filled', class: 'h-5 w-5' %>
+        </button>
+      </div>
+      <div>
+        <%= turbo_frame_tag @turbo_frame_tag do %>
+          <%= render Blog::PostComponent.new @post %>
+        <% end %>
+      </div>
     </div>
 
   </div>

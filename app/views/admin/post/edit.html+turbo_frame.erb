@@ -38,6 +38,8 @@
               <%= render Form::EnumOptionsComponent.new(Post.statuses, @post.status) %>
             </select>
           </fieldset>
+
+          <%= render Form::InputComponent.new(type: "date", name: "update[published_at]", title: "Published At", value: @post.published_at.strftime("%Y-%m-%d")) %>
         </div>
 
         <div class="divider">Images</div>

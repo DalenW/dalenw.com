@@ -30,6 +30,7 @@ class Admin::PostController < AdminController
       :title,
       :description,
       :status,
+      :published_at,
       :content,
       :image_upload
     )
@@ -38,7 +39,14 @@ class Admin::PostController < AdminController
       safe_params[key] = value.strip if value.is_a? String
     end
 
-    @post.assign_attributes safe_params.except(:image_upload)
+    @post.assign_attributes safe_params.except(:image_upload, :published_at)
+
+    ### PUBLISHED AT
+    if @post.published_at.strftime("%Y-%m-%d") != safe_params[:published_at].to_s
+      @post.published_at = Date.strptime safe_params[:published_at].to_s, "%Y-%m-%d"
+    else
+      # puts "Same"
+    end
 
     if safe_params[:image_upload].present?
       @post.images.attach safe_params[:image_upload]

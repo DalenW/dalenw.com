@@ -17,6 +17,7 @@ And rather than deal with making somebody else's solution work for me, I just ma
   - [ ] Post tags
   - [ ] Post search
   - [ ] RSS feed
+  - [ ] Image Viewer
 - [ ] Recipes
 - [ ] URL Shortener
 - [ ] Media Manager

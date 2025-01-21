@@ -10,7 +10,8 @@ class Post < ApplicationRecord
   # ====================================================================================================================
   enum :status, {
     draft: 0,
-    published: 1
+    published: 1,
+    archived: 2
   }
 
 
@@ -19,6 +20,7 @@ class Post < ApplicationRecord
 
   validates :title, presence: true
   validates :path, presence: true
+  validates :published_at, presence: true
 
 
   ### CALLBACKS

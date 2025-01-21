@@ -94,7 +94,7 @@
     <orderEntry type="library" scope="PROVIDED" name="figaro (v1.2.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fugit (v1.11.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.2.1, mise: 3.4.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="i18n (v1.14.6, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="i18n (v1.14.7, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="image_processing (v1.13.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="importmap-rails (v2.1.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.8.0, mise: 3.4.1) [gem]" level="application" />
@@ -118,7 +118,7 @@
     <orderEntry type="library" scope="PROVIDED" name="net-protocol (v0.2.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="net-smtp (v0.5.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.7.4, mise: 3.4.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.18.1, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.18.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="parallel (v1.26.3, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="parser (v3.3.7.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pg (v1.5.9, mise: 3.4.1) [gem]" level="application" />
@@ -140,6 +140,8 @@
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.2.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.11.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="redcarpet (v3.6.0, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="redis (v5.3.0, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="redis-client (v0.23.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.10.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.6.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.4.0, mise: 3.4.1) [gem]" level="application" />
@@ -153,14 +155,14 @@
     <orderEntry type="library" scope="PROVIDED" name="ruby-vips (v2.2.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubyzip (v2.4.1, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="securerandom (v0.4.1, mise: 3.4.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v4.27.0, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="selenium-webdriver (v4.28.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="solid_cable (v3.0.5, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="solid_cache (v1.0.6, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="solid_queue (v1.1.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stimulus-rails (v1.3.4, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.1.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tabler_icons_ruby (v3.26.0, mise: 3.4.1) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v3.2.0, mise: 3.4.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v3.3.0, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tailwindcss-ruby (v3.4.17, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.2, mise: 3.4.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thruster (v0.1.10, mise: 3.4.1) [gem]" level="application" />
@@ -562,6 +564,11 @@
                 </subtasks>
               </RakeTaskImpl>
               <RakeTaskImpl description="" fullCommand="db:truncate_all" id="truncate_all" />
+            </subtasks>
+          </RakeTaskImpl>
+          <RakeTaskImpl id="entrypoint">
+            <subtasks>
+              <RakeTaskImpl description="Entrypoint for the application" fullCommand="entrypoint:init" id="init" />
             </subtasks>
           </RakeTaskImpl>
           <RakeTaskImpl id="importmap">
