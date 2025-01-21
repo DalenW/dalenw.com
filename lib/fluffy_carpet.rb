@@ -79,7 +79,7 @@ class FluffyCarpet < Redcarpet::Render::HTML
 
       html + "</div>\n"
     else # normal
-      %(<code class="my-0" data-controller="markdown--code" data-markdown--code-language-value="#{language}">#{code}</code>)
+      %(<code class="" data-controller="markdown--code" data-markdown--code-language-value="#{language}">#{code}</code>)
     end
   end
 
