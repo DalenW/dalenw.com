@@ -2,7 +2,7 @@
 
 # https://github.com/vmg/redcarpet#block-level-calls
 class FluffyCarpet < Redcarpet::Render::HTML
-  include Redcarpet::Render::SmartyPants
+  # include Redcarpet::Render::SmartyPants # causes some issues with code rendering
   include TablerIconsRuby::Helper
 
   def image(link, title, alt_text)
@@ -78,8 +78,8 @@ class FluffyCarpet < Redcarpet::Render::HTML
       end
 
       html + "</div>\n"
-    else
-      %(<div data-controller="markdown--code" data-markdown--code-language-value="#{language}">#{code}</div>)
+    else # normal
+      %(<code class="my-0" data-controller="markdown--code" data-markdown--code-language-value="#{language}">#{code}</code>)
     end
   end
 
