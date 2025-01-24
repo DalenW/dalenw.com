@@ -4,7 +4,7 @@ class BlogController < ApplicationController
   before_action :posts
 
   def index
-    @post = @posts.last
+    @post = @posts.first
 
     redirect_to blog_post_path @post.path
   end
