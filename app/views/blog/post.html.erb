@@ -49,17 +49,23 @@
       <div class="2xl:col-span-3 lg:col-span-3 bg-base-200 p-0">
         <% @posts.each do |post| %>
           <a href="<%= blog_post_path post.path %>" class="w-full flex justify-end" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance">
-            <div class="w-full prose hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
+            <div class="w-full hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
               <% if post.cover_image.blank? %>
-                  <div class="ms-2">
-                    <h3 class="mt-0"><%= post.title %></h3>
-                    <p><%= post.description %></p>
+                  <div class="ms-2 flex flex-col justify-between">
+                    <h3 class="text-xl mb-2"><%= post.title %></h3>
+                    <div class="tooltip" data-tip="<%= post.description %>">
+                      <p class="mb-1 me-2 truncate">Desc: <%= post.description %></p>
+                    </div>
+                    <small><%= @post.published_at.strftime("%m/%d/%Y") %></small>
                   </div>
               <% else %>
                 <div class="grid grid-flow-row grid-cols-3 grid-rows-1">
-                  <div class="col-span-2 ms-2">
-                    <h3 class="mt-0"><%= post.title %></h3>
-                    <p><%= post.description %></p>
+                  <div class="col-span-2 ms-2 flex flex-col justify-between">
+                    <h3 class="text-xl mb-2"><%= post.title %></h3>
+                    <div class="tooltip" data-tip="<%= post.description %>">
+                      <p class="mb-1 me-2 truncate">Desc: <%= post.description %></p>
+                    </div>
+                    <small><%= @post.published_at.strftime("%m/%d/%Y") %></small>
                   </div>
                   <div class="col-span-1">
                     <img class="object-cover w-24 h-24 p-2 mt-0 mb-0 ms-auto ms-auto me-2" src="<%= url_for post.cover_image.variant(resize_to_fill: [200, 200]) %>">
@@ -105,7 +111,7 @@
 
       <div>
         <% @posts.each do |post| %>
-        <a href="<%= blog_post_path post.path %>" class="w-full flex justify-end" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance" data-action="blog--post#hidePosts">
+        <a href="<%= blog_post_path post.path %>" class="w-full flex justify-start" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance" data-action="blog--post#hidePosts">
           <div class="w-full prose hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
             <% if post.cover_image.blank? %>
               <div class="ms-2">

@@ -30,7 +30,7 @@
         <div class="flex">
           <%= render Form::InputComponent.new(name: "update[title]", title: "Title", placeholder: "A cool title", value: @post.title) %>
 
-          <%= render Form::InputComponent.new(name: "update[description]", title: "Description", placeholder: "A short summary", value: @post.description) %>
+          <%= render Form::InputComponent.new(name: "update[description]", title: "Description", placeholder: "A short summary", value: @post.description, required: false) %>
 
           <fieldset class="fieldset">
             <legend class="fieldset-legend">State</legend>
