@@ -26,10 +26,10 @@ services:
         - traefik.enable=true
         - traefik.docker.network=traefik-public
         - traefik.constraint-label=traefik-public
-        - traefik.http.routers.dalenwcom-http.rule=Host(`dalenwcom.dalenw.net`,`dalenw.com`)
+        - traefik.http.routers.dalenwcom-http.rule=Host(`dalenwcom.dalenw.net`) || Host(`dalenw.com`)
         - traefik.http.routers.dalenwcom-http.entrypoints=http
         - traefik.http.routers.dalenwcom-http.middlewares=https-redirect
-        - traefik.http.routers.dalenwcom-https.rule=Host(`dalenwcom.dalenw.net`,`dalenw.com`)
+        - traefik.http.routers.dalenwcom-https.rule=Host(`dalenwcom.dalenw.net`) || Host(`dalenw.com`)
         - traefik.http.routers.dalenwcom-https.entrypoints=https
         - traefik.http.routers.dalenwcom-https.tls=true
         - traefik.http.routers.dalenwcom-https.tls.certresolver=cloudflare
