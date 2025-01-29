@@ -61,7 +61,7 @@ class FluffyCarpet < Redcarpet::Render::HTML
                     </div>
                     <dialog class="modal" data-blog--gallery-image-target="modal">
                       <div class="modal-box w-11/12 max-w-5xl">
-                        <img src="#{line}" class="" loading="lazy">
+                        <img src="#{line}" class="m-0 my-0 p-2" loading="lazy">
                       </div>
                       <form method="dialog" class="modal-backdrop">
                         <button>close</button>

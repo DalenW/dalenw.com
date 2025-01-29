@@ -19,7 +19,7 @@
 
       <% if @cover %>
         <div class="grow-1 min-w-fit">
-          <img class="object-cover w-24 h-24 p-2 mt-0 mb-0 ms-auto me-2" src="<%= url_for @post.cover_image.variant(resize_to_fill: [200, 200]) %>">
+          <img class="object-cover w-24 h-24 p-2 mt-0 mb-0 ms-auto" src="<%= url_for @post.cover_image.variant(resize_to_fill: [200, 200]) %>">
         </div>
       <% end %>
     </div>
