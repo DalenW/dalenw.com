@@ -9,3 +9,5 @@ pin "trix", preload: false
 pin "@rails/actiontext", to: "actiontext.esm.js", preload: false
 
 pin_all_from "app/javascript", preload: false
+
+pin "photoswipe", preload: false # @5.4.4
