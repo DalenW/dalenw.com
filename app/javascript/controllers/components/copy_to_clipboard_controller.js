@@ -6,13 +6,19 @@ export default class extends Controller {
     value: String
   }
 
+  connect() {
+    // console.log(this.valueValue);
+  }
+
   copy() {
     navigator.clipboard.writeText(this.valueValue)
       .then(() => {
         // success
+        // console.log("copied");
       })
       .catch((error) => {
         // fail
+        console.log("copy component error", error);
       });
   }
 }
