@@ -8,9 +8,23 @@
 
 
 @font-face {
-    font-family: "ui-sans-serif";
-    src: url("TX-02.woff2") format("woff");
+    font-family: "TX-02";
+    src: url("TX-02.woff2") format("woff2"),
+    url("TX-02.ttf") format("truetype"),
+    url("TX-02.otf") format("opentype");
+    font-display: swap;
+    font-weight: normal;
+    font-style: normal;
 }
+
+body {
+    font-family: "TX-02", system-ui, sans-serif !important;
+}
+
+html {
+    font-family: "TX-02", system-ui, sans-serif !important;
+}
+
 
 @layer base {
   code::before {

@@ -60,8 +60,31 @@ class FluffyCarpet < Redcarpet::Render::HTML
                       </div>
                     </div>
                     <dialog class="modal" data-blog--gallery-image-target="modal">
-                      <div class="modal-box w-11/12 max-w-5xl">
-                        <img src="#{line}" class="m-0 my-0 p-2" loading="lazy">
+                      <div class="modal-box w-11/12 max-w-7xl bg-base-200">
+                        <div class="flex flex-col gap-4">
+                          <div class="flex justify-between items-center">
+                            <h3 class="!my-0">Image Preview</h3>
+                            <div class="flex gap-2">
+                              <a href="#{line}"
+                                 class="btn btn-sm"
+                                 download
+                                 title="Download image">
+                                #{tabler_icon('download', class: 'h-5 w-5')}
+                              </a>
+                              <form method="dialog">
+                                <button class="btn btn-sm btn-ghost" title="Close">
+                                  #{tabler_icon('x', class: 'h-5 w-5')}
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+
+                          <div class="relative rounded-lg overflow-hidden bg-base-300 p-2">
+                            <img src="#{line}"
+                                 class="max-h-[80vh] w-full object-contain !m-0"
+                                 loading="lazy">
+                          </div>
+                        </div>
                       </div>
                       <form method="dialog" class="modal-backdrop">
                         <button>close</button>
