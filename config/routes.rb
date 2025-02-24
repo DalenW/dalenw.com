@@ -30,4 +30,6 @@ Rails.application.routes.draw do
     get "/", to: "blog#index", as: :index
     get "/:path", to: "blog#post", as: :post
   end
+
+  get :contact, to: "home#contact"
 end
