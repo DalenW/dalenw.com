@@ -1,14 +1,13 @@
 <a href="<%= blog_post_path @post.path %>" class="w-full flex justify-end" data-turbo-frame="<%= @turbo_frame_tag %>" data-turbo-action="advance">
   <div class="w-full max-h-fit hover:bg-base-100 py-2 m-0 border-b-2 border-dashed">
-    <div class="max-w-full flex justify-between">
-
-      <div class="<%= @cover ? "max-w-3/4" : "max-w-full" %> grow-4 flex flex-col justify-between">
+    <div class="flex gap-4">
+      <div class="min-w-0 flex-1 flex flex-col justify-between">
         <h3 class="ms-2 text-xl mb-2"><%= @post.title %></h3>
 
         <% if @post.description.present? %>
-          <div class="max-w-full tooltip flex justify-start" data-tip="<%= @post.description %>">
-            <%= tabler_icon 'corner-down-right', class: 'h-5 w-5 min-w-fit mx-2' %>
-            <p class="truncate me-2">
+          <div class="tooltip flex items-center overflow-hidden" data-tip="<%= @post.description %>">
+            <%= tabler_icon 'corner-down-right', class: 'h-5 w-5 flex-shrink-0 mx-2' %>
+            <p class="truncate overflow-hidden">
               <%= @post.description %>
             </p>
           </div>
@@ -18,8 +17,8 @@
       </div>
 
       <% if @cover %>
-        <div class="grow-1 min-w-fit">
-          <img class="object-cover w-24 h-24 p-2 mt-0 mb-0 ms-auto" src="<%= url_for @post.cover_image.variant(resize_to_fill: [200, 200]) %>">
+        <div class="w-24 flex-shrink-0">
+          <img class="object-cover w-24 h-24 p-2" src="<%= url_for @post.cover_image.variant(resize_to_fill: [200, 200]) %>">
         </div>
       <% end %>
     </div>
