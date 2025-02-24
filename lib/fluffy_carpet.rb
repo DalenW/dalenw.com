@@ -6,7 +6,48 @@ class FluffyCarpet < Redcarpet::Render::HTML
   include TablerIconsRuby::Helper
 
   def image(link, title, alt_text)
-    %(<img src="#{link}" alt="#{alt_text}" loading="lazy" data-title="#{title}" data-controller="components--expand-image">)
+    %(
+    <div class="relative group" data-controller="components--expand-image">
+      <img src="#{link}" alt="#{alt_text}" loading="lazy" data-title="#{title}" class="relative">
+      <div class="absolute top-2 left-2">
+        <button class="btn btn-circle btn-sm opacity-0 group-hover:opacity-100 transition-opacity" data-action="components--expand-image#expand">
+          #{tabler_icon('arrows-maximize', class: 'h-4 w-4')}
+        </button>
+      </div>
+      <dialog class="modal" data-components--expand-image-target="modal">
+        <div class="modal-box w-11/12 max-w-7xl bg-base-200">
+          <div class="flex flex-col gap-4">
+            <div class="flex justify-between items-center">
+              <h3 class="!my-0">Image Preview</h3>
+              <div class="flex gap-2">
+                <a href="#{link}"
+                   class="btn btn-sm"
+                   download
+                   title="Download image">
+                  #{tabler_icon('download', class: 'h-5 w-5')}
+                </a>
+                <form method="dialog">
+                  <button class="btn btn-sm btn-ghost" title="Close">
+                    #{tabler_icon('x', class: 'h-5 w-5')}
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div class="relative rounded-lg overflow-hidden bg-base-300 p-2">
+              <img src="#{link}"
+                   class="max-h-[80vh] w-full object-contain !m-0"
+                   loading="lazy"
+                   alt="#{alt_text}">
+            </div>
+          </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+    </div>
+  )
   end
 
   def link(link, title, content)
