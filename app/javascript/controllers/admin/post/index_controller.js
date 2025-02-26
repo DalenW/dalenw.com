@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import { createGrid, InfiniteRowModelModule, CsvExportModule, TextFilterModule } from 'ag-grid-community';
+import { createGrid, InfiniteRowModelModule, CsvExportModule, TextFilterModule, NumberFilterModule } from 'ag-grid-community';
 import { themeQuartz } from 'ag-grid-community';
 
 export default class extends Controller {
@@ -44,9 +44,7 @@ export default class extends Controller {
       {
         field: 'status',
         sortable: true,
-        filterParams: {
-          values: ['published', 'draft', 'archived'] // adjust based on your status values
-        }
+        filter: 'agNumberColumnFilter'
       },
 
       {
@@ -108,7 +106,7 @@ export default class extends Controller {
     };
 
     new createGrid(this.element, gridOptions, {
-      modules: [InfiniteRowModelModule, CsvExportModule, TextFilterModule]
+      modules: [InfiniteRowModelModule, CsvExportModule, TextFilterModule, NumberFilterModule]
     });
   }
 }

@@ -6,7 +6,7 @@ class Admin::PostController < AdminController
     respond_to do |format|
       format.html
       format.json do
-        agGridJson Current.user.posts, params
+        ag_grid_json Current.user.posts, params
       end
     end
 

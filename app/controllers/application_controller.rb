@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     request.variant = :turbo_frame if turbo_frame_request?
   end
 
-  def agGridJson(collection, query)
+  def ag_grid_json(collection, query)
     # Handle server-side pagination, sorting, and filtering
     # page_size = params[:endRow].to_i - params[:startRow].to_i
     # page = (params[:startRow].to_i / page_size) + 1
@@ -53,28 +53,37 @@ class ApplicationController < ActionController::Base
 
         next unless filter[:filterType] == "text"
 
-        case filter[:type]
-        when "contains"
-          collection = collection.where("#{field} ILIKE ?", "%#{filter[:filter]}%")
-        when "notContains"
-          collection = collection.where.not("#{field} ILIKE ?", "%#{filter[:filter]}%")
-        when "equals"
-          collection = collection.where("#{field} = ?", filter[:filter])
-        when "notEqual"
-          collection = collection.where.not("#{field} = ?", filter[:filter])
-        when "startsWith"
-          collection = collection.where("#{field} ILIKE ?", "#{filter[:filter]}%")
-        when "endsWith"
-          collection = collection.where("#{field} ILIKE ?", "%#{filter[:filter]}")
-        when "blank"
-          collection = collection.where("#{field} = ?", "")
-        when "notBlank"
-          collection = collection.where.not("#{field} = ?", "")
-        else
-          puts "Unknown filter type: #{filter[:type]}"
-        end
+        column = ActiveRecord::Base.connection.quote_column_name(field)
+        filter_query = filter[:filter].to_s
+        filter_type = filter[:filterType]
 
-        collection = collection.where("#{field} ILIKE ?", "%#{filter[:filter]}%")
+        case filter_type
+        when "text"
+          case filter[:type]
+          when "contains"
+            collection = collection.where("#{column} ILIKE ?", "%#{filter_query}%")
+          when "notContains"
+            collection = collection.where.not("#{column} ILIKE ?", "%#{filter_query}%")
+          when "equals"
+            collection = collection.where("#{column} = ?", filter_query)
+          when "notEqual"
+            collection = collection.where.not("#{column} = ?", filter_query)
+          when "startsWith"
+            collection = collection.where("#{column} ILIKE ?", "#{filter_query}%")
+          when "endsWith"
+            collection = collection.where("#{column} ILIKE ?", "%#{filter_query}")
+          when "blank"
+            collection = collection.where("#{column} = ?", "")
+          when "notBlank"
+            collection = collection.where.not("#{column} = ?", "")
+          else
+            puts "Unknown filter type: #{filter[:type]}"
+          end
+        when "number"
+          # do something
+        else
+          puts "Unknown filter type: #{filter_type}"
+        end
       end
     end
 
