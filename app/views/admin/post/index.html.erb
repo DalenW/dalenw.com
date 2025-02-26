@@ -4,7 +4,7 @@
   </p>
 
   <div class="flex justify-end">
-    <a class="btn btn-primary" href="<%= new_admin_post_path %>">
+    <a class="btn btn-primary" href="<%= new_admin_post_path %>" data-turbo="false">
       <%= tabler_icon 'plus', class: 'h-5 w-5' %> New
     </a>
   </div>
@@ -12,7 +12,6 @@
 
 <div class="overflow-x-auto">
   <div data-controller="admin--post--index"
-       data-admin--post--index-posts-value="<%= @posts.to_json(methods: [:status]) %>"
-       class="ag-theme-alpine w-full h-[500px]">
+       class="w-full h-[500px]">
   </div>
 </div>

@@ -50,8 +50,10 @@
 
   <div class="divider">Content</div>
 
-  <div data-controller="markdown--content" class="prose mx-auto" data-turbo="false">
-    <%== @markdown.render @post.content %>
-  </div>
+  <% if @post.content.present? %>
+    <div data-controller="markdown--content" class="prose mx-auto" data-turbo="false">
+      <%== @markdown.render @post.content %>
+    </div>
+  <% end %>
 
 <% end %>
