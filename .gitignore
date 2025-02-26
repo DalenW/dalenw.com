@@ -50,3 +50,5 @@ y
 
 /config/credentials/production.key
 .DS_Store
+
+vendor/javascript/*

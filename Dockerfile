@@ -34,6 +34,7 @@ RUN rm -rf tmp/cache spec
 
 COPY . .
 
-RUN SECRET_KEY_BASE_DUMMY=1 TAILWINDCSS_INSTALL_DIR=node_modules/.bin ./bin/rails assets:precompile
+RUN ./bin/importmap pristine
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 CMD ["bundle", "exec", "rake", "entrypoint:init"]

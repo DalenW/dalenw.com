@@ -10,38 +10,9 @@
   </div>
 </div>
 
-<div class="card bg-base-200 shadow-sm">
-  <div class="card-body">
-    <div class="overflow-x-auto">
-      <table class="table table-zebra">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created At</th>
-            <th>Publish At</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @posts.each do |post| %>
-            <tr class="hover">
-              <td><%= post.title %></td>
-              <td><%= post.description %></td>
-              <td><%= post.created_at %></td>
-              <td><%= post.published_at %></td>
-              <td><%= post.status %></td>
-              <td>
-                <a class="btn btn-outline" href="<%= admin_post_path post %>">
-                  <%= tabler_icon 'arrow-right', class: 'h-5 w-5' %>
-                </a>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+<div class="overflow-x-auto">
+  <div data-controller="admin--post--index"
+       data-admin--post--index-posts-value="<%= @posts.to_json(methods: [:status]) %>"
+       class="ag-theme-alpine w-full h-[500px]">
   </div>
 </div>

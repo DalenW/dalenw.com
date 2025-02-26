@@ -8,12 +8,18 @@ importers:
 
   .:
     dependencies:
+      '@hotwired/stimulus':
+        specifier: ^3.2.2
+        version: 3.2.2
       '@tailwindcss/cli':
         specifier: 4.0.8
         version: 4.0.8
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@4.0.8)
+      ag-grid-community:
+        specifier: ^33.1.1
+        version: 33.1.1
       daisyui:
         specifier: 5.0.0-beta.8
         version: 5.0.0-beta.8
@@ -22,6 +28,9 @@ importers:
         version: 4.0.8
 
 packages:
+
+  '@hotwired/stimulus@3.2.2':
+    resolution: {integrity: sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==}
 
   '@parcel/watcher-android-arm64@2.5.1':
     resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
@@ -187,6 +196,12 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
 
+  ag-charts-types@11.1.1:
+    resolution: {integrity: sha512-bRmUcf5VVhEEekhX8Vk0NSwa8Te8YM/zchjyYKR2CX4vDYiwoohM1Jg9RFvbIhVbLC1S6QrPEbx5v2C6RDfpSA==}
+
+  ag-grid-community@33.1.1:
+    resolution: {integrity: sha512-CNubIro0ipj4nfQ5WJPG9Isp7UI6MMDvNzrPdHNf3W+IoM8Uv3RUhjEn7xQqpQHuu6o/tMjrqpacipMUkhzqnw==}
+
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
@@ -342,6 +357,8 @@ packages:
 
 snapshots:
 
+  '@hotwired/stimulus@3.2.2': {}
+
   '@parcel/watcher-android-arm64@2.5.1':
     optional: true
 
@@ -473,6 +490,12 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.0.8
+
+  ag-charts-types@11.1.1: {}
+
+  ag-grid-community@33.1.1:
+    dependencies:
+      ag-charts-types: 11.1.1
 
   braces@3.0.3:
     dependencies:
