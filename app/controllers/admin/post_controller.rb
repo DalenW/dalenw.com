@@ -6,36 +6,7 @@ class Admin::PostController < AdminController
     respond_to do |format|
       format.html
       format.json do
-        # Handle server-side pagination, sorting, and filtering
-        # page_size = params[:endRow].to_i - params[:startRow].to_i
-        # page = (params[:startRow].to_i / page_size) + 1
-
-        query = Current.user.posts
-
-        # Handle sorting
-        if params[:sortModel].present?
-          params[:sortModel] = JSON.parse params[:sortModel].to_s
-          params[:sortModel].each do |sort|
-            query = query.order("#{sort[:colId]} #{sort[:sort]}")
-          end
-        end
-
-        # Handle filtering
-        if params[:filterModel].present?
-          params[:filterModel] = JSON.parse params[:filterModel].to_s
-          params[:filterModel].each do |field, filter|
-            next unless filter[:filter].present?
-            query = query.where("#{field} ILIKE ?", "%#{filter[:filter]}%")
-          end
-        end
-
-        total = query.count
-        posts = query.offset(params[:startRow]).limit(params[:endRow].to_i - params[:startRow].to_i)
-
-        render json: {
-          rows: posts,
-          lastRow: total
-        }
+        ag_grid_json Current.user.posts, params
       end
     end
 

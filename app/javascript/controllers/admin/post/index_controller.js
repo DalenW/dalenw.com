@@ -1,28 +1,9 @@
-import { Controller } from "@hotwired/stimulus";
-import { createGrid, InfiniteRowModelModule, CsvExportModule, TextFilterModule } from 'ag-grid-community';
-import { themeQuartz } from 'ag-grid-community';
+import {AgGridController} from "controllers/ag_grid_controller";
 
-export default class extends Controller {
-  connect() {
-    this.initializeGrid()
-  }
-
-  initializeGrid() {
-    const myTheme = themeQuartz
-      .withParams({
-        backgroundColor: "#1f2836",
-        browserColorScheme: "dark",
-        chromeBackgroundColor: {
-          ref: "foregroundColor",
-          mix: 0.07,
-          onto: "backgroundColor"
-        },
-        foregroundColor: "#ECF9FF",
-        headerFontSize: 14
-      });
-
-    const columnDefs = [
-      { field: 'id', sortable: true, filter: true },
+export default class extends AgGridController {
+  columnDefs() {
+    return [
+      { field: 'id', sortable: true, filter: 'agNumberColumnFilter' },
       { field: 'title', sortable: true, filter: true },
       { field: 'description', sortable: true, filter: true },
       {
@@ -44,9 +25,7 @@ export default class extends Controller {
       {
         field: 'status',
         sortable: true,
-        filterParams: {
-          values: ['published', 'draft', 'archived'] // adjust based on your status values
-        }
+        filter: 'agNumberColumnFilter'
       },
 
       {
@@ -59,56 +38,5 @@ export default class extends Controller {
         }
       }
     ];
-
-    const gridOptions = {
-      theme: myTheme,
-      columnDefs: columnDefs,
-      defaultColDef: {
-        flex: 1,
-        minWidth: 100,
-        resizable: true,
-        sortable: true,
-        filter: true
-      },
-      domLayout: 'autoHeight',
-
-      // Infinite Row Model settings
-      rowModelType: 'infinite',
-      cacheBlockSize: 20,
-      maxBlocksInCache: 5,
-      infiniteInitialRowCount: 1,
-      maxConcurrentDatasourceRequests: 2,
-
-      // Datasource for infinite scrolling
-      datasource: {
-        getRows: (params) => {
-          this.gridApi?.showLoadingOverlay();
-
-          const sortModel = params.sortModel;
-          const filterModel = params.filterModel;
-
-          fetch('/admin/post.json?' + new URLSearchParams({
-            startRow: params.startRow,
-            endRow: params.endRow,
-            sortModel: JSON.stringify(sortModel),
-            filterModel: JSON.stringify(filterModel)
-          }))
-            .then(response => response.json())
-            .then(data => {
-              params.successCallback(data.rows, data.lastRow);
-              this.gridApi?.hideOverlay();
-            })
-            .catch(error => {
-              console.error('Error fetching data:', error);
-              params.failCallback();
-              this.gridApi?.hideOverlay();
-            });
-        }
-      }
-    };
-
-    new createGrid(this.element, gridOptions, {
-      modules: [InfiniteRowModelModule, CsvExportModule, TextFilterModule]
-    });
   }
 }
