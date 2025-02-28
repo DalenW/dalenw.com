@@ -45,21 +45,32 @@ class ApplicationController < ActionController::Base
     # Handle filtering
     if filter_model.present?
       filter_model.each do |field, filter|
-        next unless filter[:filter].present?
-        next unless columns.include? field.to_s
+        filter_query = filter[:filter] # the value
+        filter_type = filter[:filterType].to_s # text, number, etc
+        filter_comparison = filter[:type].to_s
+
+        unless filter[:filter].present?
+          puts "No filter value for field: #{field}"
+          next
+        end
+        unless columns.include? field.to_s
+          puts "Unknown column: #{field}"
+          next
+        end
 
         # example filter:
         # {filterType: "text", type: "contains", filter: "some"}
 
-        next unless filter[:filterType] == "text"
+        supported_filter_types = %w[text number]
+
+        next unless supported_filter_types.include? filter_type
 
         column = ActiveRecord::Base.connection.quote_column_name(field)
-        filter_query = filter[:filter].to_s
-        filter_type = filter[:filterType]
 
         case filter_type
         when "text"
-          case filter[:type]
+          filter_query = filter_query.to_s
+          case filter_comparison
           when "contains"
             collection = collection.where("#{column} ILIKE ?", "%#{filter_query}%")
           when "notContains"
@@ -80,7 +91,31 @@ class ApplicationController < ActionController::Base
             puts "Unknown filter type: #{filter[:type]}"
           end
         when "number"
-          # do something
+          filter_query = filter_query.to_i
+
+          case filter_comparison
+          when "equals"
+            collection = collection.where("#{column} = ?", filter_query)
+          when "greaterThan"
+            collection = collection.where("#{column} > ?", filter_query)
+          when "greaterThanOrEqual"
+            collection = collection.where("#{column} >= ?", filter_query)
+          when "lessThan"
+            collection = collection.where("#{column} < ?", filter_query)
+          when "lessThanOrEqual"
+            collection = collection.where("#{column} <= ?", filter_query)
+          when "inRange"
+            range_start = filter_query
+            range_end = filter[:filterTo].to_i
+
+            collection = collection.where("#{column} BETWEEN ? AND ?", range_start, range_end)
+          when "blank"
+            collection = collection.where("#{column} = ?", nil)
+          when "notBlank"
+            collection = collection.where.not("#{column} = ?", nil)
+          else
+            puts "Unknown filter type: #{filter[:type]}"
+          end
         else
           puts "Unknown filter type: #{filter_type}"
         end

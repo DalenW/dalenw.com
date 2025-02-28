@@ -3,7 +3,7 @@ import {AgGridController} from "controllers/ag_grid_controller";
 export default class extends AgGridController {
   columnDefs() {
     return [
-      { field: 'id', sortable: true, filter: true },
+      { field: 'id', sortable: true, filter: 'agNumberColumnFilter' },
       { field: 'title', sortable: true, filter: true },
       { field: 'description', sortable: true, filter: true },
       {
