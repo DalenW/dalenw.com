@@ -22,3 +22,16 @@ And rather than deal with making somebody else's solution work for me, I just ma
 - [ ] URL Shortener
 - [ ] Media Manager
 - [ ] Pages
+
+
+## Setup
+
+### Credentials:
+
+```yml
+cloudflare_r2:
+  account_id:
+  access_key_id:
+  secret_access_key:
+  bucket:
+```

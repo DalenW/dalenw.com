@@ -4,17 +4,23 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
-  title: Some Post
-  id: 1
-  description: test post one
-  content:
-  published_at: 2025-01-21 23:01:38.457276+00
-  path: 2025-1-21-some-post-1
-  status: 1
+google_link:
+  url: 'https://www.google.com'
+  code: 'google123'
+  clicks: 10
+  enabled: true
   user: one
-  views_count: 100
-# column: value
-#
-# two: {}
-# column: value
+
+github_link:
+  url: 'https://github.com'
+  code: 'gh2024'
+  clicks: 5
+  enabled: true
+  user: one
+
+disabled_link:
+  url: 'https://example.com'
+  code: 'example'
+  clicks: 0
+  enabled: false
+  user: one

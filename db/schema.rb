@@ -10,21 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_21_000508) do
-  create_schema "_timescaledb_cache"
-  create_schema "_timescaledb_catalog"
-  create_schema "_timescaledb_config"
-  create_schema "_timescaledb_debug"
-  create_schema "_timescaledb_functions"
-  create_schema "_timescaledb_internal"
-  create_schema "timescaledb_experimental"
-  create_schema "timescaledb_information"
-  create_schema "toolkit_experimental"
-
+ActiveRecord::Schema[8.0].define(version: 2025_02_28_040016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "timescaledb"
-  enable_extension "timescaledb_toolkit"
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -89,6 +78,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_000508) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "short_links", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "url", null: false
+    t.text "code", null: false
+    t.integer "clicks", default: 0, null: false
+    t.boolean "enabled", default: true, null: false
+    t.string "linkable_type"
+    t.bigint "linkable_id"
+    t.bigint "user_id", null: false
+    t.index ["code"], name: "index_short_links_on_code", unique: true
+    t.index ["linkable_type", "linkable_id"], name: "index_short_links_on_linkable"
+    t.index ["user_id"], name: "index_short_links_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
@@ -101,4 +105,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_21_000508) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "users"
   add_foreign_key "sessions", "users"
+  add_foreign_key "short_links", "users"
 end

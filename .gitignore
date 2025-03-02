@@ -52,3 +52,5 @@ y
 .DS_Store
 
 vendor/javascript/*
+
+/config/credentials/test.key
