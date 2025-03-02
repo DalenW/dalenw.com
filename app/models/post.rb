@@ -6,6 +6,8 @@ class Post < ApplicationRecord
   has_many_attached :images
   has_one_attached :cover_image
 
+  has_one :short_link, dependent: :destroy, as: :linkable
+
   ### ENUMS
   # ====================================================================================================================
   enum :status, {
@@ -29,6 +31,8 @@ class Post < ApplicationRecord
   before_create :set_path
   before_update :set_path
 
+  after_commit :update_short_link
+
 
   ### METHODS
   # ====================================================================================================================
@@ -36,5 +40,10 @@ class Post < ApplicationRecord
   def set_path
     assign_attributes path: "#{published_at.year}-#{published_at.month}-#{published_at.day}-#{title.parameterize}-#{id}"
     puts self.path
+  end
+
+  def update_short_link
+    short_link.url = self.path
+    short_link.save
   end
 end

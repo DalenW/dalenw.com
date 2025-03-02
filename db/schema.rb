@@ -11,6 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2025_02_28_040016) do
+  create_schema "_timescaledb_cache"
+  create_schema "_timescaledb_catalog"
+  create_schema "_timescaledb_config"
+  create_schema "_timescaledb_functions"
+  create_schema "_timescaledb_internal"
+  create_schema "timescaledb_experimental"
+  create_schema "timescaledb_information"
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "timescaledb"
@@ -51,6 +59,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_28_040016) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "posts", force: :cascade do |t|

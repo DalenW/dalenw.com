@@ -85,6 +85,7 @@
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.3.5, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="connection_pool (v2.5.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, mise: 3.4.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="data_migrate (v11.2.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="date (v3.4.1, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.10.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="drb (v2.2.1, mise: 3.4.2) [gem]" level="application" />
@@ -200,6 +201,7 @@
         <option value="channel" />
         <option value="component" />
         <option value="controller" />
+        <option value="data_migration" />
         <option value="erb:authentication" />
         <option value="erb:component" />
         <option value="erb:controller" />
@@ -252,6 +254,7 @@
         <option value="channel" />
         <option value="component" />
         <option value="controller" />
+        <option value="data_migration" />
         <option value="erb:authentication" />
         <option value="erb:component" />
         <option value="erb:controller" />
@@ -473,8 +476,36 @@
               <RakeTaskImpl description="Lookup nested dependencies for TEMPLATE (like messages/show or comments/_comment.html)" fullCommand="cache_digests:nested_dependencies" id="nested_dependencies" />
             </subtasks>
           </RakeTaskImpl>
+          <RakeTaskImpl id="data">
+            <subtasks>
+              <RakeTaskImpl description="Raises an error if there are pending data migrations" fullCommand="data:abort_if_pending_migrations" id="abort_if_pending_migrations" />
+              <RakeTaskImpl description="Create a db/data_schema.rb file that stores the current data version" fullCommand="data:dump" id="dump" />
+              <RakeTaskImpl description="Pushes the schema to the next version (specify steps w/ STEP=n)" fullCommand="data:forward" id="forward" />
+              <RakeTaskImpl description="Migrate data migrations (options: VERSION=x, VERBOSE=false)" fullCommand="data:migrate" id="migrate" />
+              <RakeTaskImpl id="migrate">
+                <subtasks>
+                  <RakeTaskImpl description="Runs the &quot;down&quot; for a given migration VERSION" fullCommand="data:migrate:down" id="down" />
+                  <RakeTaskImpl description="Rollbacks the database one migration and re migrate up (options: STEP=x, VERSION=x)" fullCommand="data:migrate:redo" id="redo" />
+                  <RakeTaskImpl description="Display status of data migrations" fullCommand="data:migrate:status" id="status" />
+                  <RakeTaskImpl description="Runs the &quot;up&quot; for a given migration VERSION" fullCommand="data:migrate:up" id="up" />
+                </subtasks>
+              </RakeTaskImpl>
+              <RakeTaskImpl description="Rolls the schema back to the previous version (specify steps w/ STEP=n)" fullCommand="data:rollback" id="rollback" />
+              <RakeTaskImpl id="schema">
+                <subtasks>
+                  <RakeTaskImpl description="Load data_schema.rb file into the database" fullCommand="data:schema:load" id="load" />
+                </subtasks>
+              </RakeTaskImpl>
+              <RakeTaskImpl description="Retrieves the current schema version number for data migrations" fullCommand="data:version" id="version" />
+            </subtasks>
+          </RakeTaskImpl>
           <RakeTaskImpl id="db">
             <subtasks>
+              <RakeTaskImpl id="abort_if_pending_migrations">
+                <subtasks>
+                  <RakeTaskImpl description="Raises an error if there are pending migrations or data migrations" fullCommand="db:abort_if_pending_migrations:with_data" id="with_data" />
+                </subtasks>
+              </RakeTaskImpl>
               <RakeTaskImpl description="Create the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:create:all to create all databases in the config). Without RAILS_ENV or when RAILS_ENV is development, it defaults to creating the development and test databases, except when DATABASE_URL is present" fullCommand="db:create" id="create" />
               <RakeTaskImpl description="Drop the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:drop:all to drop all databases in the config). Without RAILS_ENV or when RAILS_ENV is development, it defaults to dropping the development and test databases, except when DATABASE_URL is present" fullCommand="db:drop" id="drop" />
               <RakeTaskImpl id="encryption">
@@ -493,19 +524,55 @@
                   <RakeTaskImpl description="" fullCommand="db:fixtures:identify" id="identify" />
                 </subtasks>
               </RakeTaskImpl>
+              <RakeTaskImpl id="forward">
+                <subtasks>
+                  <RakeTaskImpl description="Pushes the schema to the next version (specify steps w/ STEP=n)" fullCommand="db:forward:with_data" id="with_data" />
+                </subtasks>
+              </RakeTaskImpl>
               <RakeTaskImpl description="Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)" fullCommand="db:migrate" id="migrate" />
               <RakeTaskImpl id="migrate">
                 <subtasks>
                   <RakeTaskImpl description="Run the &quot;down&quot; for a given migration VERSION" fullCommand="db:migrate:down" id="down" />
+                  <RakeTaskImpl id="down">
+                    <subtasks>
+                      <RakeTaskImpl description="Runs the &quot;down&quot; for a given migration VERSION" fullCommand="db:migrate:down:with_data" id="with_data" />
+                    </subtasks>
+                  </RakeTaskImpl>
                   <RakeTaskImpl description="Roll back the database one migration and re-migrate up (options: STEP=x, VERSION=x)" fullCommand="db:migrate:redo" id="redo" />
+                  <RakeTaskImpl id="redo">
+                    <subtasks>
+                      <RakeTaskImpl description="Rollbacks the database one migration and re migrate up (options: STEP=x, VERSION=x)" fullCommand="db:migrate:redo:with_data" id="with_data" />
+                    </subtasks>
+                  </RakeTaskImpl>
                   <RakeTaskImpl description="Display status of migrations" fullCommand="db:migrate:status" id="status" />
+                  <RakeTaskImpl id="status">
+                    <subtasks>
+                      <RakeTaskImpl description="Display status of data and schema migrations" fullCommand="db:migrate:status:with_data" id="with_data" />
+                    </subtasks>
+                  </RakeTaskImpl>
                   <RakeTaskImpl description="Run the &quot;up&quot; for a given migration VERSION" fullCommand="db:migrate:up" id="up" />
+                  <RakeTaskImpl id="up">
+                    <subtasks>
+                      <RakeTaskImpl description="Runs the &quot;up&quot; for a given migration VERSION" fullCommand="db:migrate:up:with_data" id="with_data" />
+                    </subtasks>
+                  </RakeTaskImpl>
+                  <RakeTaskImpl description="Migrate the database data and schema (options: VERSION=x, VERBOSE=false)" fullCommand="db:migrate:with_data" id="with_data" />
                   <RakeTaskImpl description="" fullCommand="db:migrate:reset" id="reset" />
                 </subtasks>
               </RakeTaskImpl>
               <RakeTaskImpl description="Run setup if database does not exist, or run migrations if it does" fullCommand="db:prepare" id="prepare" />
+              <RakeTaskImpl id="prepare">
+                <subtasks>
+                  <RakeTaskImpl description="Runs setup if database does not exist, or runs data and schema migrations if it does" fullCommand="db:prepare:with_data" id="with_data" />
+                </subtasks>
+              </RakeTaskImpl>
               <RakeTaskImpl description="Drop and recreate all databases from their schema for the current environment and load the seeds" fullCommand="db:reset" id="reset" />
               <RakeTaskImpl description="Roll the schema back to the previous version (specify steps w/ STEP=n)" fullCommand="db:rollback" id="rollback" />
+              <RakeTaskImpl id="rollback">
+                <subtasks>
+                  <RakeTaskImpl description="Rolls the schema back to the previous version (specify steps w/ STEP=n)" fullCommand="db:rollback:with_data" id="with_data" />
+                </subtasks>
+              </RakeTaskImpl>
               <RakeTaskImpl id="schema">
                 <subtasks>
                   <RakeTaskImpl id="cache">
@@ -516,6 +583,11 @@
                   </RakeTaskImpl>
                   <RakeTaskImpl description="Create a database schema file (either db/schema.rb or db/structure.sql, depending on `ENV['SCHEMA_FORMAT']` or `config.active_record.schema_format`)" fullCommand="db:schema:dump" id="dump" />
                   <RakeTaskImpl description="Load a database schema file (either db/schema.rb or db/structure.sql, depending on `ENV['SCHEMA_FORMAT']` or `config.active_record.schema_format`) into the database" fullCommand="db:schema:load" id="load" />
+                  <RakeTaskImpl id="load">
+                    <subtasks>
+                      <RakeTaskImpl description="Load both schema.rb and data_schema.rb file into the database" fullCommand="db:schema:load:with_data" id="with_data" />
+                    </subtasks>
+                  </RakeTaskImpl>
                 </subtasks>
               </RakeTaskImpl>
               <RakeTaskImpl description="Load the seed data from db/seeds.rb" fullCommand="db:seed" id="seed" />
@@ -525,7 +597,21 @@
                 </subtasks>
               </RakeTaskImpl>
               <RakeTaskImpl description="Create all databases, load all schemas, and initialize with the seed data (use db:reset to also drop all databases first)" fullCommand="db:setup" id="setup" />
+              <RakeTaskImpl id="structure">
+                <subtasks>
+                  <RakeTaskImpl id="load">
+                    <subtasks>
+                      <RakeTaskImpl description="Load both structure.sql and data_schema.rb file into the database" fullCommand="db:structure:load:with_data" id="with_data" />
+                    </subtasks>
+                  </RakeTaskImpl>
+                </subtasks>
+              </RakeTaskImpl>
               <RakeTaskImpl description="Retrieve the current schema version number" fullCommand="db:version" id="version" />
+              <RakeTaskImpl id="version">
+                <subtasks>
+                  <RakeTaskImpl description="Retrieves the current schema version numbers for data and schema migrations" fullCommand="db:version:with_data" id="with_data" />
+                </subtasks>
+              </RakeTaskImpl>
               <RakeTaskImpl description="" fullCommand="db:_dump" id="_dump" />
               <RakeTaskImpl description="" fullCommand="db:abort_if_pending_migrations" id="abort_if_pending_migrations" />
               <RakeTaskImpl description="" fullCommand="db:charset" id="charset" />

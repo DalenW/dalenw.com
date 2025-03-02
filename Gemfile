@@ -77,3 +77,5 @@ gem "view_component"
 gem "redcarpet"
 
 gem "aws-sdk-s3"
+
+gem "data_migrate"

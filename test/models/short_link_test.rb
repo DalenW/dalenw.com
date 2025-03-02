@@ -48,7 +48,7 @@ class ShortLinkTest < ActiveSupport::TestCase
   end
 
   test "should allow valid code format" do
-    valid_codes = ["abc123", "123456", "abcdef"]
+    valid_codes = %w[abc123 123456 abcdef]
 
     valid_codes.each do |code|
       @short_link.code = code
