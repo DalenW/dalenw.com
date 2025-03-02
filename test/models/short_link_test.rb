@@ -5,8 +5,7 @@ class ShortLinkTest < ActiveSupport::TestCase
     @short_link = ShortLink.new(
       url: "https://example.com/some-long-path",
       code: "abc123",
-      user: :one,
-      linkable: create(:user) # Assuming you have a factory for a linkable type
+      user: create(:user)
     )
   end
 
@@ -24,7 +23,7 @@ class ShortLinkTest < ActiveSupport::TestCase
     existing_link = ShortLink.create!(
       url: @short_link.url,
       code: "different",
-      linkable: create(:user)
+      user: create(:user)
     )
 
     assert_not @short_link.valid?
@@ -41,7 +40,7 @@ class ShortLinkTest < ActiveSupport::TestCase
     existing_link = ShortLink.create!(
       url: "https://different-url.com",
       code: @short_link.code,
-      linkable: create(:user)
+      user: create(:user)
     )
 
     assert_not @short_link.valid?
@@ -65,11 +64,5 @@ class ShortLinkTest < ActiveSupport::TestCase
       assert_not @short_link.valid?, "#{code} should not be valid"
       assert_includes @short_link.errors[:code], "is invalid"
     end
-  end
-
-  test "should require linkable association" do
-    @short_link.linkable = nil
-    assert_not @short_link.valid?
-    assert_includes @short_link.errors[:linkable], "must exist"
   end
 end

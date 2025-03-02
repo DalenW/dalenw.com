@@ -67,7 +67,7 @@
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.8.7, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ast (v2.4.2, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-eventstream (v1.3.1, mise: 3.4.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="aws-partitions (v1.1055.0, mise: 3.4.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-partitions (v1.1058.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sdk-core (v3.219.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sdk-kms (v1.99.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="aws-sdk-s3 (v1.182.0, mise: 3.4.2) [gem]" level="application" />
@@ -90,6 +90,8 @@
     <orderEntry type="library" scope="PROVIDED" name="drb (v2.2.1, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.13.1, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="et-orbi (v1.2.11, mise: 3.4.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="factory_bot (v6.5.1, mise: 3.4.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="factory_bot_rails (v6.4.4, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.17.1, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="figaro (v1.2.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="fugit (v1.11.1, mise: 3.4.2) [gem]" level="application" />
@@ -148,7 +150,7 @@
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.10.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.6.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.4.1, mise: 3.4.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.72.2, mise: 3.4.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.73.1, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-ast (v1.38.1, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-performance (v1.24.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rails (v2.30.2, mise: 3.4.2) [gem]" level="application" />
@@ -165,7 +167,7 @@
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.1.5, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tabler_icons_ruby (v3.26.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="tailwindcss-rails (v4.1.0, mise: 3.4.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-ruby (v4.0.8, mise: 3.4.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="tailwindcss-ruby (v4.0.9, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.2, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thruster (v0.1.11, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.4.3, mise: 3.4.2) [gem]" level="application" />
@@ -173,7 +175,7 @@
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v2.0.6, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="unicode-display_width (v3.1.4, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="unicode-emoji (v4.0.4, mise: 3.4.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="uri (v1.0.2, mise: 3.4.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="uri (v1.0.3, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="useragent (v0.16.11, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="view_component (v3.21.0, mise: 3.4.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="web-console (v4.2.1, mise: 3.4.2) [gem]" level="application" />
@@ -203,6 +205,7 @@
         <option value="erb:controller" />
         <option value="erb:mailer" />
         <option value="erb:scaffold" />
+        <option value="factory_bot:model" />
         <option value="generator" />
         <option value="haml:component" />
         <option value="helper" />
@@ -254,6 +257,7 @@
         <option value="erb:controller" />
         <option value="erb:mailer" />
         <option value="erb:scaffold" />
+        <option value="factory_bot:model" />
         <option value="generator" />
         <option value="haml:component" />
         <option value="helper" />

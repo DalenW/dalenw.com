@@ -2,7 +2,7 @@ class ShortLink < ApplicationRecord
   ### ASSOCIATIONS
   # ====================================================================================================================
 
-  belongs_to :linkable, polymorphic: true
+  belongs_to :linkable, polymorphic: true, optional: true
   belongs_to :user
 
   ### VALIDATIONS
