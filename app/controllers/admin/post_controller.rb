@@ -9,7 +9,6 @@ class Admin::PostController < AdminController
         ag_grid_json Current.user.posts, params
       end
     end
-
   end
 
   def new

@@ -1,0 +1,49 @@
+<%= turbo_frame_tag @turbo_frame_tag do %>
+  <%= render Form::FlashComponent.new %>
+  <%= render Form::ErrorComponent.new(@short_link.errors.messages) %>
+
+  <div class="flex justify-between mb-4">
+    <div class="flex">
+      <a href="<%= admin_short_link_index_path %>" class="btn btn-primary btn-outline mr-4" data-turbo="false">
+        <%= tabler_icon 'arrow-left', class: 'h-5 w-5' %> Back to Short Links
+      </a>
+      <p class="text-xl">
+
+      </p>
+    </div>
+
+
+    <div class="flex justify-end">
+      <a href="<%= edit_admin_short_link_path @short_link %>" class="btn btn-primary" data-turbo-action="advance">
+        <%= tabler_icon 'edit', class: 'h-5 w-5' %> Edit
+      </a>
+    </div>
+  </div>
+
+  <div class="card bg-base-200 shadow-sm">
+    <div class="card-body">
+      <p>
+        <b>Url:</b> <a href="<%= @short_link.url %>" target="_blank" class="link"><%= @short_link.url %></a>
+      </p>
+
+      <p>
+        <b>Shortened Url:</b> <a href="" class="link"><%= @short_link.code %></a>
+      </p>
+
+      <p>
+        <b>Created At:</b> <%= @short_link.created_at %>
+      </p>
+
+      <p>
+        <b>Updated At:</b> <%= @short_link.updated_at %>
+      </p>
+
+      <% if @short_link.linkable.present? %>
+        <a href="<%= polymorphic_url([:admin, @short_link.linkable]) %>" class="btn btn-secondary w-fit" data-turbo="false">
+          <%= tabler_icon 'arrow-right', class: 'h-5 w-5' %> <span>View Linked Object</span>
+        </a>
+    <% end %>
+    </div>
+  </div>
+
+<% end %>

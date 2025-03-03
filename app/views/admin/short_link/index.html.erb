@@ -1,0 +1,18 @@
+<div class="flex justify-between mb-4">
+  <p class="text-xl">
+    Short Links
+  </p>
+
+  <div class="flex justify-end">
+    <a class="btn btn-primary" href="<%= new_admin_short_link_path %>" data-turbo="false">
+      <%= tabler_icon 'plus', class: 'h-5 w-5' %> New
+    </a>
+  </div>
+</div>
+
+<div class="overflow-x-auto">
+  <div data-controller="admin--short-link--index"
+       data-admin--short-link--index-url-value="<%= admin_short_link_index_path %>"
+       class="w-full h-[500px]">
+  </div>
+</div>

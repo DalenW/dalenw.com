@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     resources :post do
       match "set_cover_image/:attachment_id", to: "post#set_cover_image", via: [ :get, :post ], as: :set_cover_image
     end
+
+    resources :short_link
   end
 
   scope :b, as: :blog do

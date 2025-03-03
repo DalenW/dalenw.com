@@ -28,4 +28,8 @@ class ShortLink < ApplicationRecord
   def create_code
     self.code = SecureRandom.base36(6) if self.code.blank?
   end
+
+  def post_path
+    Rails.application.routes.url_helpers.admin_post_path self.linkable_id
+  end
 end

@@ -42,6 +42,10 @@ class Post < ApplicationRecord
     puts self.path
   end
 
+  def post_path
+    Rails.application.routes.url_helpers.admin_post_path self.id
+  end
+
   def update_short_link
     short_link.url = self.path
     short_link.save
