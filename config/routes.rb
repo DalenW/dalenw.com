@@ -33,5 +33,9 @@ Rails.application.routes.draw do
     get "/:path", to: "blog#post", as: :post
   end
 
+  scope :s, as: :short_link do
+    get "/:code", to: "short_link#redirect", as: :redirect
+  end
+
   get :contact, to: "home#contact"
 end

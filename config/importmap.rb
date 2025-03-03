@@ -10,3 +10,4 @@ pin "@rails/actiontext", to: "actiontext.esm.js", preload: false
 
 pin_all_from "app/javascript", preload: false
 pin "ag-grid-community" # @33.1.1
+pin "qrious" # @4.0.2

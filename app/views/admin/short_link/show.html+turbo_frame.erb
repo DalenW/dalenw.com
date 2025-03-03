@@ -27,7 +27,7 @@
       </p>
 
       <p>
-        <b>Shortened Url:</b> <a href="" class="link"><%= @short_link.code %></a>
+        <b>Shortened Url:</b> <a href="<%= short_link_redirect_url @short_link.code %>" class="link" data-turbo="false"><%= short_link_redirect_url @short_link.code %></a>
       </p>
 
       <p>
@@ -44,6 +44,10 @@
         </a>
     <% end %>
     </div>
+  </div>
+
+  <div class="bg-base-200 p-2 mt-8 w-fit">
+    <canvas data-controller="format--qr-code" data-format--qr-code-url-value="<%= short_link_redirect_url @short_link.code %>"></canvas>
   </div>
 
 <% end %>

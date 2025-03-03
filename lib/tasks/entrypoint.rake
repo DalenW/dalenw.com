@@ -4,7 +4,7 @@ namespace :entrypoint do
     # migrate the database
     # Rake::Task["db:drop"].invoke
     # Rake::Task["db:create"].invoke
-    Rake::Task["db:migrate"].invoke
+    Rake::Task["db:migrate:with_data"].invoke
 
     puts "Removing PID"
     File.delete("/onac-app/tmp/pids/server.pid") if File.exist?("/onac-app/tmp/pids/server.pid")
