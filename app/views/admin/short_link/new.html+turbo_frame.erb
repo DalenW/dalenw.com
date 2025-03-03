@@ -1,14 +1,14 @@
 <%= turbo_frame_tag @turbo_frame_tag do %>
   <div>
+    <%= render Form::FlashComponent.new %>
+    <%= render Form::ErrorComponent.new(@short_link.errors.messages) %>
+
     <h1 class="text-xl">
       New Short Link
     </h1>
 
     <form action="<%= admin_short_link_index_path %>" method="post">
-      <fieldset class="fieldset">
-        <legend class="fieldset-legend">URL</legend>
-        <input type="text" class="input" placeholder="https://example.com" name="create[url]" required />
-      </fieldset>
+      <%= render Form::InputComponent.new(title: "Url", name: "create[url]", value: @short_link.url, placeholder: "https://example.com") %>
 
       <button type="submit" class="btn btn-primary">Create</button>
     </form>

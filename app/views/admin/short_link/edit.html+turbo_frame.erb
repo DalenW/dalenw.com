@@ -1,0 +1,16 @@
+<%= turbo_frame_tag @turbo_frame_tag do %>
+  <div>
+    <%= render Form::FlashComponent.new %>
+    <%= render Form::ErrorComponent.new(@short_link.errors.messages) %>
+    
+    <h1 class="text-xl">
+      Edit Short Link <%= @short_link.code %>
+    </h1>
+
+    <form action="<%= admin_short_link_path @short_link %>" method="patch">
+      <%= render Form::InputComponent.new(title: "Url", name: "update[url]", value: @short_link.url, placeholder: "https://example.com") %>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+<% end %>
