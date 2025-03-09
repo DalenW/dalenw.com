@@ -18,7 +18,7 @@
 <% else %>
   <div class="relative w-full h-96 overflow-hidden">
     <!-- Background image -->
-    <img src="<%= url_for @post.cover_image %>" alt="Background" class="absolute inset-0 w-full h-full object-cover blur-sm" />
+    <img src="<%= url_for @post.cover_image %>" alt="Background" class="absolute inset-0 w-full h-full object-cover blur-sm"/>
 
     <!-- Overlay with text -->
     <div class="relative z-10 flex flex-col items-center justify-center w-full h-full text-center p-4 hero-overlay">
@@ -39,3 +39,17 @@
 <article data-controller="markdown--content" class="prose w-full my-8 mx-auto px-8" data-turbo="false">
   <%== @markdown.render @post.content %>
 </article>
+
+
+<% if @post.short_link.present? %>
+  <div class="flex w-full flex-col">
+    <div class="divider mx-8"></div>
+  </div>
+
+  <div class="mb-4">
+    <p class="text-center text-sm">
+      Copy this link to share this post:
+      <a href="<%= @post.short_link.link_url %>" class="link" data-turbo="false"><%= @post.short_link.link_url %></a>
+    </p>
+  </div>
+<% end %>

@@ -20,16 +20,24 @@ class ShortLink < ApplicationRecord
               with: /\A[a-z0-9]+\z/
             }
 
-
   ### METHODS
   # ====================================================================================================================
 
   after_initialize :create_code
+
   def create_code
     self.code = SecureRandom.base36(6) if self.code.blank?
   end
 
   def post_path
     Rails.application.routes.url_helpers.admin_post_path self.linkable_id
+  end
+
+  def link_path
+    Rails.application.routes.url_helpers.short_link_redirect_path self.code
+  end
+
+  def link_url
+    Rails.application.routes.url_helpers.short_link_redirect_url self.code
   end
 end

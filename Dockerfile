@@ -1,4 +1,4 @@
-FROM ruby:3.3.6
+FROM ruby:3.4.2
 
 ARG RAILS_ROOT=/app
 ARG PACKAGES="tzdata postgresql-client bash git libvips libvips-tools libvips-dev curl"
