@@ -6,6 +6,10 @@ class BlogController < ApplicationController
   def index
     @post = @posts.first
 
+    if @post == nil
+      return render plain: "No posts found"
+    end
+
     redirect_to blog_post_path @post.path
   end
 
@@ -28,6 +32,7 @@ class BlogController < ApplicationController
   end
 
   private
+
   def posts
     # TODO: Verify that this uses the same timezone as the published at field so it's accurate
     @posts = Post.where(status: Post.statuses[:published], published_at: ...Time.now).order(published_at: :desc)

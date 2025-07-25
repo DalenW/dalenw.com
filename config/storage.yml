@@ -6,14 +6,14 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
-
-cloudflare:
+s3:
   service: S3
-  endpoint: "https://<%= Rails.application.credentials.cloudflare_r2[:account_id] %>.r2.cloudflarestorage.com"
-  access_key_id: <%= Rails.application.credentials.cloudflare_r2[:access_key_id] %>
-  secret_access_key: <%= Rails.application.credentials.cloudflare_r2[:secret_access_key] %>
-  region: auto
-  bucket: <%= Rails.application.credentials&.cloudflare_r2[:bucket] %>
+  endpoint: "https://<%= Rails.application.credentials.s3[:endpoint] %>"
+  access_key_id: <%= Rails.application.credentials.s3[:access_key_id] %>
+  secret_access_key: <%= Rails.application.credentials.s3[:secret_access_key] %>
+  region: <%= Rails.application.credentials.s3[:region] %>
+  bucket: <%= Rails.application.credentials&.s3[:bucket] %>
+  force_path_style: true
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

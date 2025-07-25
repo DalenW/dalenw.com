@@ -16,14 +16,12 @@ class Post < ApplicationRecord
     archived: 2
   }
 
-
   ### CALLBACKS
   # ====================================================================================================================
 
   validates :title, presence: true
   validates :path, presence: true
   validates :published_at, presence: true
-
 
   ### CALLBACKS
   # ====================================================================================================================
@@ -32,7 +30,6 @@ class Post < ApplicationRecord
   before_update :set_path
 
   after_commit :update_short_link
-
 
   ### METHODS
   # ====================================================================================================================
@@ -47,6 +44,8 @@ class Post < ApplicationRecord
   end
 
   def update_short_link
+    return unless short_link.present?
+
     short_link.url = self.path
     short_link.save
   end

@@ -81,5 +81,5 @@ gem "data_migrate"
 # S3
 # https://github.com/rails/rails/issues/54374
 # https://developers.cloudflare.com/r2/examples/aws/aws-sdk-ruby/
-gem "aws-sdk-s3", "1.177"
-gem "aws-sdk-core", "3.214.0" #  aws-sdk-core (3.220.1) breaks file uploads to cloudlfare r2, error: "You can only specify one checksum at a time."
+gem "aws-sdk-s3" #, "1.177"
+gem "aws-sdk-core" #, "3.214.0" #  aws-sdk-core (3.220.1) breaks file uploads to cloudlfare r2, error: "You can only specify one checksum at a time."
