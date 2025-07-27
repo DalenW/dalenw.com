@@ -1,0 +1,18 @@
+<div class="flex justify-between mb-4">
+  <p class="text-xl">
+    Assets
+  </p>
+
+  <div class="flex justify-end">
+
+  </div>
+</div>
+
+<%= render Form::FlashComponent.new %>
+
+<div class="overflow-x-auto">
+  <div data-controller="admin--asset--index"
+       data-admin--asset--index-url-value="<%= admin_asset_index_path %>"
+       class="w-full h-[500px]">
+  </div>
+</div>

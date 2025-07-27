@@ -1,6 +1,6 @@
 class Admin::PostController < AdminController
-  before_action :find_post, except: [ :index, :new ]
-  before_action { @turbo_frame_tag = "post" }
+  before_action :find_post, except: [:index, :new]
+  before_action { @turbo_frame_tag = "admin_post" }
 
   def index
     respond_to do |format|
@@ -88,6 +88,7 @@ class Admin::PostController < AdminController
   end
 
   private
+
   def find_post
     @post = Post.find(params[:id].blank? ? params[:post_id] : params[:id])
 

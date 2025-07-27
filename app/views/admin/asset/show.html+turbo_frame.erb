@@ -1,0 +1,63 @@
+<%= turbo_frame_tag @turbo_frame_tag do %>
+  <%= render Form::FlashComponent.new %>
+  <%= render Form::ErrorComponent.new(@asset.errors.messages) %>
+
+  <div class="flex justify-between mb-4">
+    <div class="flex">
+      <a href="<%= admin_asset_index_path %>" class="btn btn-primary btn-outline mr-4" data-turbo="false">
+        <%= tabler_icon 'arrow-left', class: 'h-5 w-5' %> Back to Assets
+      </a>
+      <p class="text-xl">
+        <%= @blob.filename %>
+      </p>
+    </div>
+
+
+    <div class="flex justify-end">
+      <a href="<%= admin_asset_path @asset %>"
+         class="btn btn-error"
+         data-turbo-method="delete"
+         data-turbo-confirm="Are you sure you want to delete this asset?"
+         data-turbo-refresh="true"
+      >
+        <%= tabler_icon 'trash', class: 'h-5 w-5' %> Delete
+      </a>
+
+    </div>
+  </div>
+
+  <div class="card bg-base-200 shadow-sm">
+    <div class="card-body">
+      <p><strong>Filename:</strong> <%= @blob.filename %></p>
+      <p><strong>Content Type:</strong> <%= @blob.content_type %></p>
+      <p><strong>Size:</strong> <%= number_to_human_size(@blob.byte_size) %></p>
+      <p><strong>Created:</strong> <%= @asset.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+      <p><strong>Attachment Name:</strong> <%= @asset.name %></p>
+      <% if @record %>
+        <p><strong>Attached to:</strong>
+          <%= @record.class.name %> #<%= @record.id %>
+          <% if @record.respond_to?(:title) %>
+            - <%= @record.title %>
+          <% end %>
+        </p>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="divider">Preview</div>
+
+  <% if @blob.image? %>
+    <%= image_tag @blob, class: "w-full max-w-md mx-auto rounded" %>
+  <% elsif @blob.video? %>
+    <%= video_tag @blob, controls: true, class: "w-full max-w-md mx-auto" %>
+  <% elsif @blob.audio? %>
+    <%= audio_tag @blob, controls: true, class: "w-full" %>
+  <% else %>
+    <div class="text-center py-8">
+      <p class="text-gray-500">No preview available for this file type</p>
+    </div>
+  <% end %>
+
+
+<% end %>

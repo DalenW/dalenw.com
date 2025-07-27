@@ -48,32 +48,43 @@
           <table class="table table-zebra">
             <!-- head -->
             <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
             </thead>
             <tbody>
-            <% @post.images.each do |image| %>
-              <tr>
-                <td><img src="<%= rails_storage_proxy_path image %>" class="max-h-16"></td>
-                <td><%= image.blob.filename %></td>
-                <td class="flex justify-end">
-                  <%= render CopyToClipboardComponent.new(rails_storage_proxy_path image) %>
-                  <div class="ms-1">
-                    <% if (@post.cover_image.present? ? (@post.cover_image.blob.id == image.blob.id) : false) %>
-                      <div class="btn btn-info btn-outline">
-                        Currently Cover Image
-                      </div>
-                    <% else %>
-                      <a href="<%= admin_post_set_cover_image_path attachment_id: image.id, post_id: @post.id %>" class="btn btn-info" data-turbo-action="replace" data-turbo-method="post" data-turbo-prefetch="false">Make
-                        Cover Image</a>
-                    <% end %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
+              <% @post.images.each do |image| %>
+                <tr>
+                  <td><img src="<%= rails_storage_proxy_path image %>" class="max-h-16"></td>
+                  <td><%= image.blob.filename %></td>
+                  <td class="flex justify-end">
+                    <%= render CopyToClipboardComponent.new(rails_storage_proxy_path image) %>
+
+                    <div class="mx-1">
+                      <% if (@post.cover_image.present? ? (@post.cover_image.blob.id == image.blob.id) : false) %>
+                        <div class="btn btn-info btn-outline">
+                          Currently Cover Image
+                        </div>
+                      <% else %>
+                        <a href="<%= admin_post_set_cover_image_path attachment_id: image.id, post_id: @post.id %>" class="btn btn-info" data-turbo-action="replace" data-turbo-method="post" data-turbo-prefetch="false">Make
+                          Cover Image</a>
+                      <% end %>
+                    </div>
+
+                    <div>
+                      <a href="<%= admin_asset_path image, redirect_to: edit_admin_post_path(@post) %>"
+                         class="btn btn-error"
+                         data-turbo-method="delete"
+                         data-turbo-confirm="Are you sure you want to delete this asset?"
+                      >
+                        <%= tabler_icon 'trash', class: 'h-5 w-5' %>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
             </tbody>
           </table>
         </div>

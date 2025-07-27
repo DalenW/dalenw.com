@@ -22,10 +22,11 @@ Rails.application.routes.draw do
     end
 
     resources :post do
-      match "set_cover_image/:attachment_id", to: "post#set_cover_image", via: [ :get, :post ], as: :set_cover_image
+      match "set_cover_image/:attachment_id", to: "post#set_cover_image", via: [:get, :post], as: :set_cover_image
     end
 
     resources :short_link
+    resources :asset
   end
 
   scope :b, as: :blog do
