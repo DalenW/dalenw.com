@@ -35,11 +35,11 @@ And rather than deal with making somebody else's solution work for me, I just ma
 secret_key_base:
 
 s3:
-  endpoint: s3.dalenw.net
-  access_key_id: GK6fb7b6fafb726bbbe3615b83
-  secret_access_key: dalenw-com-production-api-key
-  bucket: dalenw-com-production
-  region: garage
+  endpoint: some.service.website
+  access_key_id: some_key_id
+  secret_access_key: some_access_key
+  bucket: bucket_name
+  region: us-east
 ```
 
 ### Creating a user

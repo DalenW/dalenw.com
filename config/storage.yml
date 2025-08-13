@@ -1,3 +1,4 @@
+#file: noinspection YAMLDuplicatedKeys
 test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
@@ -8,13 +9,20 @@ local:
 
 s3:
   service: S3
+  <% if Rails.env.test? %>
+  endpoint: "https://test-endpoint.example.com"
+  access_key_id: "test-access-key"
+  secret_access_key: "test-secret-key"
+  region: "us-east-1"
+  bucket: "test-bucket"
+  <% else %>
   endpoint: "https://<%= Rails.application.credentials.s3[:endpoint] %>"
   access_key_id: <%= Rails.application.credentials.s3[:access_key_id] %>
   secret_access_key: <%= Rails.application.credentials.s3[:secret_access_key] %>
   region: <%= Rails.application.credentials.s3[:region] %>
   bucket: <%= Rails.application.credentials&.s3[:bucket] %>
+  <% end %>
   force_path_style: true
-
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3

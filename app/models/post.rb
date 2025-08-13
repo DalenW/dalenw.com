@@ -36,7 +36,6 @@ class Post < ApplicationRecord
 
   def set_path
     assign_attributes path: "#{published_at.year}-#{published_at.month}-#{published_at.day}-#{title.parameterize}-#{id}"
-    puts self.path
   end
 
   def post_path
