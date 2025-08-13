@@ -63,7 +63,7 @@ class Admin::PostController < AdminController
     end
 
     if @post.save
-      flash[:success] = "Post updated #{Time.now.to_s}"
+      flash[:success] = "Post updated #{Time.now}"
       render :edit
     end
   end

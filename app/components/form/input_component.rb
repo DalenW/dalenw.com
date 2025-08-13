@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Form::InputComponent < ViewComponent::Base
-
   def initialize(**options)
     super
 
@@ -16,7 +15,6 @@ class Form::InputComponent < ViewComponent::Base
     @read_only = options[:read_only].nil? ? false : options[:read_only]
     @disabled = options[:disabled].nil? ? false : options[:disabled]
     @input_classes = options[:input_classes]
-    @autocomplete = options[:autocomplete ].blank? ? "off" : options[:autocomplete ]
+    @autocomplete = options[:autocomplete].blank? ? "off" : options[:autocomplete]
   end
-
 end

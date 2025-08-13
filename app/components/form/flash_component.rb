@@ -6,7 +6,7 @@ class Form::FlashComponent < ViewComponent::Base
 
     return unless Rails.env.development?
 
-    puts 'Rendering Form Flash Component'
+    puts "Rendering Form Flash Component"
   end
 
   def before_render

@@ -61,7 +61,7 @@ class FluffyCarpet < Redcarpet::Render::HTML
   def block_code(code, language)
     case language
     when "mermaid"
-       %(<div><pre class="mermaid">#{code}</pre></div>)
+      %(<div><pre class="mermaid">#{code}</pre></div>)
     when "image_gallery"
       html = %(<div class="carousel carousel-center w-full">)
 
@@ -82,7 +82,6 @@ class FluffyCarpet < Redcarpet::Render::HTML
         if index == lines_length - 1
           next_item_id = "#{parent_id}_0"
         end
-
 
         html += %(<div id="#{item_id}" class="carousel-item relative w-full" data-controller="blog--gallery-image">
                     <div class="my-auto">
@@ -142,9 +141,9 @@ class FluffyCarpet < Redcarpet::Render::HTML
       end
 
       html + "</div>\n"
-    else # normal
+    else
+      # normal
       %(<code class="" data-controller="markdown--code" data-markdown--code-language-value="#{language}">#{code}</code>)
     end
   end
-
 end
