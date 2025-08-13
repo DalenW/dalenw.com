@@ -2,7 +2,7 @@
 
 class Form::InputComponent < ViewComponent::Base
   def initialize(**options)
-    super
+    super()
 
     @id = options[:id].blank? ? SecureRandom.alphanumeric(5) : options[:id]
     @name = options[:name]

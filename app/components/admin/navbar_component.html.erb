@@ -2,7 +2,7 @@
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <%= tabler_icon 'menu-2', class: 'h-5 w-5' %>
+        <%= helpers.tabler_icon 'menu-2', class: 'h-5 w-5' %>
       </div>
       <ul tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
@@ -20,7 +20,7 @@
     <form class="button_to" method="post" action="/session">
       <input type="hidden" name="_method" value="delete" autocomplete="off">
       <button class="btn btn-primary" type="submit">
-        <%= tabler_icon 'logout', class: 'h-5 w-5' %> Log Out
+        <%= helpers.tabler_icon 'logout', class: 'h-5 w-5' %> Log Out
       </button>
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     </form>

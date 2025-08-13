@@ -6,7 +6,7 @@
 
         <% if @post.description.present? %>
           <div class="tooltip flex items-center overflow-hidden" data-tip="<%= @post.description %>">
-            <%= tabler_icon 'corner-down-right', class: 'h-5 w-5 flex-shrink-0 mx-2' %>
+            <%= helpers.tabler_icon 'corner-down-right', class: 'h-5 w-5 flex-shrink-0 mx-2' %>
             <p class="truncate overflow-hidden">
               <%= @post.description %>
             </p>

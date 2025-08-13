@@ -2,7 +2,7 @@
 
 class Form::FlashComponent < ViewComponent::Base
   def initialize(*)
-    super
+    super()
 
     return unless Rails.env.development?
 
@@ -10,7 +10,7 @@ class Form::FlashComponent < ViewComponent::Base
   end
 
   def before_render
-    super
+    super()
 
     @flash = flash.clone
 

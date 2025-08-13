@@ -1,7 +1,7 @@
 <div>
   <% unless flash[:success].blank? %>
     <div class="alert alert-success my-1" role="alert">
-      <%= tabler_icon 'check', class: 'h-6 w-6' %>
+      <%= helpers.tabler_icon 'check', class: 'h-6 w-6' %>
       <span>
         <%= flash[:success] %>
       </span>
@@ -11,7 +11,7 @@
 
   <% unless flash[:info].blank? %>
     <div class="alert alert-info my-1" role="alert">
-      <%= tabler_icon 'check', class: 'h-6 w-6' %>
+      <%= helpers.tabler_icon 'check', class: 'h-6 w-6' %>
       <span>
         <%= flash[:info] %>
       </span>
@@ -21,7 +21,7 @@
 
   <% unless flash[:warning].blank? %>
     <div class="alert alert-warning my-1" role="alert">
-      <%= tabler_icon 'check', class: 'h-6 w-6' %>
+      <%= helpers.tabler_icon 'check', class: 'h-6 w-6' %>
       <span>
         <%= flash[:warning] %>
       </span>
@@ -31,7 +31,7 @@
 
   <% unless flash[:error].blank? %>
     <div class="alert alert-error my-1" role="alert">
-      <<%= tabler_icon 'check', class: 'h-6 w-6' %>
+      <<%= helpers.tabler_icon 'check', class: 'h-6 w-6' %>
       <span>
         <%= flash[:error] %>
       </span>
@@ -41,7 +41,7 @@
 
   <% unless flash[:error2].blank? %>
     <div class="alert alert-error my-1" role="alert">
-      <%= tabler_icon 'check', class: 'h-6 w-6' %>
+      <%= helpers.tabler_icon 'check', class: 'h-6 w-6' %>
       <span>
         <%= flash[:error2] %>
       </span>

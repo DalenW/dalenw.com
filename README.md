@@ -13,15 +13,15 @@ And rather than deal with making somebody else's solution work for me, I just ma
     - [x] Basic posts written in Markdown
     - [x] Media support
     - [x] Image galleries
-    - [ ] Number of views
-    - [ ] Short links for sharing posts
+    - [x] Number of views
+    - [x] Short links for sharing posts
     - [ ] Post tags
     - [ ] Post search
     - [ ] RSS feed
-    - [ ] Image Viewer
+    - [x] Image Viewer
 - [ ] Recipes
-- [ ] URL Shortener
-- [ ] Media Manager
+- [x] URL Shortener
+- [x] Media Manager
 - [ ] Pages
 
 ## Setup
