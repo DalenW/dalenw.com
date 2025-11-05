@@ -9,6 +9,11 @@ FactoryBot.define do
 
     association :user
 
+    after(:create) do |post|
+      post.set_path
+      post.save!
+    end
+
     trait :draft do
       status { :draft }
     end

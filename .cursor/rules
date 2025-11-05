@@ -1,0 +1,205 @@
+# Cursor Rules for Rails 8 + DaisyUI + Hotwire Application
+
+## Project Overview
+This is a Rails 8 application using:
+- **Rails 8.0** with ViewComponent for component-based architecture
+- **DaisyUI 5.0** for UI components with Tailwind CSS 4
+- **Hotwire** (Turbo + Stimulus) for dynamic interactions
+- **Importmap** for JavaScript dependency management
+- **PostgreSQL** database
+- **Solid Queue/Cache/Cable** for background jobs, caching, and WebSocket connections
+
+## Code Style & Conventions
+
+### Ruby & Rails
+- Follow Rails 8 conventions and best practices
+- Use `rubocop-rails-omakase` style guide
+- Prefer `ViewComponent` over partials for reusable UI components
+- Use `frozen_string_literal: true` at the top of Ruby files
+- Keep controllers thin - delegate business logic to models or service objects
+- Use strong parameters in controllers
+- Prefer `before_action` filters over conditionals in controllers
+
+### ViewComponents
+- Components live in `app/components/`
+- Component classes: `app/components/*_component.rb`
+- Component templates: `app/components/*_component.html.erb`
+- Use `ViewComponent::Base` as the base class
+- Keep components focused and single-purpose
+- Pass data via `initialize` method parameters
+- Use `render` helper to render components in views: `<%= render ComponentName.new(options) %>`
+
+### DaisyUI & Tailwind CSS
+- Use DaisyUI components and classes for styling
+- Prefer DaisyUI utility classes over custom CSS when possible
+- Use Tailwind CSS 4 syntax (compatible with Tailwind 4)
+- DaisyUI themes can be configured via `data-theme` attribute
+- Common DaisyUI components: `btn`, `card`, `modal`, `dropdown`, `navbar`, `alert`, `badge`, `input`, `select`, `textarea`
+- Use DaisyUI's responsive utilities: `btn-sm`, `btn-md`, `btn-lg`, `btn-xs`
+- Apply DaisyUI color schemes: `btn-primary`, `btn-secondary`, `btn-accent`, `btn-ghost`, `btn-link`
+
+### Hotwire (Turbo + Stimulus)
+
+#### Turbo
+- Use Turbo Frames for partial page updates
+- Use Turbo Streams for real-time updates and broadcasts
+- Use `data-turbo-frame` attribute to target specific frames
+- Use `data-turbo-method` for non-GET requests (DELETE, PATCH, etc.)
+- Forms should use `data-turbo-frame` or `data-turbo-stream` for Turbo interactions
+- Use `turbo_frame_tag` helper for Turbo Frames
+- Use `turbo_stream_from` for real-time subscriptions
+
+#### Stimulus Controllers
+- Controllers live in `app/javascript/controllers/`
+- Use descriptive names: `copy_to_clipboard_controller.js`, `gallery_image_controller.js`
+- Follow Stimulus naming conventions: `data-controller="copy-to-clipboard"`
+- Use `connect()`, `disconnect()`, and action methods (`handleClick`, etc.)
+- Use targets for DOM element references: `static targets = ["input", "button"]`
+- Use values for configuration: `static values = { delay: Number }`
+- Keep controllers focused and single-purpose
+- Use `this.dispatch()` for custom events when components need to communicate
+- Prefer data attributes over querySelector when possible
+
+### JavaScript
+- Use ESM modules with Importmap
+- Import Stimulus: `import { Controller } from "@hotwired/stimulus"`
+- Import Turbo: `import "@hotwired/turbo-rails"`
+- Keep JavaScript minimal - prefer server-rendered HTML with Turbo/Stimulus enhancements
+- Use Stimulus actions: `data-action="click->controller#method"`
+- Use Stimulus targets: `data-controller-target="targetName"`
+- Use Stimulus values: `data-controller-value="value"`
+
+### File Organization
+- Controllers: `app/controllers/`
+- Models: `app/models/`
+- Views: `app/views/`
+- ViewComponents: `app/components/`
+- Stimulus Controllers: `app/javascript/controllers/`
+- Helpers: `app/helpers/` (use sparingly, prefer ViewComponents)
+- Tests: `test/` (Minitest)
+
+### Testing
+- Use Minitest for testing
+- Test components in `test/components/`
+- Test controllers in `test/controllers/`
+- Use FactoryBot for test data
+- Write system tests for user flows
+
+### Database
+- Use migrations for schema changes
+- Use data migrations for data transformations (data_migrate gem)
+- Prefer database constraints over application-level validation when possible
+- Use indexes for foreign keys and frequently queried columns
+
+### Security
+- Always use strong parameters
+- Use `has_secure_password` for password authentication
+- Use `bcrypt` for password hashing
+- Sanitize user input in views
+- Use CSRF protection (enabled by default in Rails)
+
+### Performance
+- Use Solid Cache for caching
+- Use Solid Queue for background jobs
+- Use Solid Cable for WebSocket connections
+- Optimize N+1 queries with `includes` or `preload`
+- Use `counter_cache` for counting associations
+
+### Code Examples
+
+#### ViewComponent Example
+```ruby
+# app/components/alert_component.rb
+class AlertComponent < ViewComponent::Base
+  def initialize(type:, message:)
+    @type = type
+    @message = message
+  end
+
+  private
+
+  attr_reader :type, :message
+end
+```
+
+```erb
+<!-- app/components/alert_component.html.erb -->
+<div class="alert alert-<%= type %>">
+  <span><%= message %></span>
+</div>
+```
+
+#### Stimulus Controller Example
+```javascript
+// app/javascript/controllers/copy_to_clipboard_controller.js
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+  static targets = ["input"]
+  
+  copy() {
+    this.inputTarget.select()
+    document.execCommand("copy")
+    this.dispatch("copied")
+  }
+}
+```
+
+#### DaisyUI Component Example
+```erb
+<button class="btn btn-primary" data-controller="copy-to-clipboard" data-action="click->copy-to-clipboard#copy">
+  Copy
+</button>
+```
+
+#### Turbo Frame Example
+```erb
+<%= turbo_frame_tag "post_#{post.id}" do %>
+  <%= render post %>
+<% end %>
+```
+
+## Common Patterns
+
+### Forms
+- Use `form_with` or `form_with` with `data: { turbo_frame: "frame_name" }` for Turbo integration
+- Use ViewComponent form components when available
+- Handle form errors with DaisyUI alert components
+
+### Navigation
+- Use DaisyUI navbar components
+- Use Turbo for navigation to avoid full page reloads
+- Use `data-turbo-preload` for prefetching links
+
+### Modals
+- Use DaisyUI modal components
+- Use Turbo Frames for modal content
+- Use Stimulus for modal open/close behavior
+
+### Notifications
+- Use DaisyUI alert/toast components
+- Use Turbo Streams for real-time notifications
+- Use Stimulus for auto-dismiss functionality
+
+## Best Practices
+
+1. **Server-First**: Render HTML on the server, enhance with Stimulus
+2. **Component-Based**: Use ViewComponents for reusable UI pieces
+3. **Progressive Enhancement**: Start with basic HTML, add Turbo/Stimulus for interactivity
+4. **Keep It Simple**: Prefer Rails conventions over custom solutions
+5. **Performance**: Use Turbo for SPA-like navigation without the complexity
+6. **Accessibility**: DaisyUI components include accessibility features, but verify ARIA attributes when needed
+7. **Responsive Design**: Use Tailwind responsive utilities with DaisyUI
+
+## When Writing Code
+
+- Always use ViewComponents for reusable UI elements
+- Use DaisyUI classes for styling (avoid custom CSS when possible)
+- Use Stimulus for interactive behavior that doesn't require a full page reload
+- Use Turbo Frames for partial page updates
+- Use Turbo Streams for real-time updates
+- Keep JavaScript minimal - let Rails handle the heavy lifting
+- Follow Rails conventions for file naming and structure
+- Write tests for new features
+- Use proper error handling and user feedback
+

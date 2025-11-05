@@ -15,9 +15,6 @@ class PostTest < ActiveSupport::TestCase
   # Validation tests
   test "should be valid with valid attributes" do
     assert @post.valid?
-
-    # put model errors
-    puts @post.errors.full_messages
   end
 
   test "should require title" do
@@ -111,15 +108,23 @@ class PostTest < ActiveSupport::TestCase
     assert_equal expected_path, @post.post_path
   end
 
-  # test "update_short_link should update short link url when present" do
-  #   post = posts(:one)
-  #   short_link = post.create_short_link!(url: "old-url")
-  #
-  #   post.update!(title: "New Title")
-  #
-  #   short_link.reload
-  #   assert_equal post.path, short_link.url
-  # end
+  test "update_short_link should update short link url when present" do
+    @post.save!
+    @post.set_path
+    short_link = ShortLink.create!(
+      url: @post.path,
+      code: "test123",
+      linkable: @post,
+      user: @user
+    )
+    @post.reload
+
+    @post.update!(title: "New Title")
+    @post.set_path
+
+    short_link.reload
+    assert_equal @post.path, short_link.url
+  end
 
   test "update_short_link should not error when short link is not present" do
     @post.save!
